@@ -367,8 +367,8 @@ function App() {
                       S
                     </div>
                     <div className="ml-4 text-left">
-                      <p className="font-medium text-gray-900">Sarah Johnson</p>
-                      <p className="text-gray-600">CEO, eCommerce Brand</p>
+                      <p className="font-medium text-gray-900">Divyam Bajaj</p>
+                      <p className="text-gray-600">Founder- BidTales</p>
                     </div>
                   </div>
                 </div>
