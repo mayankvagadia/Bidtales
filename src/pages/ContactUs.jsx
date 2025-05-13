@@ -48,7 +48,6 @@ const ContactUs = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-  const [activeTab, setActiveTab] = useState('form');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,7 +79,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen mt-10 bg-white">
+    <div className="min-h-screen bg-white">
       {/* Join Now Section */}
       <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">

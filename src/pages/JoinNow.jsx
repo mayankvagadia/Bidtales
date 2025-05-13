@@ -66,7 +66,7 @@ const JoinNow = () => {
   ];
 
   return (
-    <div className="min-h-screen mt-10 bg-white">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">

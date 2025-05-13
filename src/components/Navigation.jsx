@@ -3,11 +3,10 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
-  { name: 'Home', href: '#home', current: true },
-  { name: 'Services', href: '#services', current: false },
-  { name: 'Features', href: '#features', current: false },
-  { name: 'About', href: '#about', current: false },
-  { name: 'Contact', href: '#contact', current: false },
+  { name: 'Home', href: '/', current: true },
+  { name: 'About', href: '/about', current: false },
+  { name: 'Contact Us', href: '/contact', current: false },
+  { name: 'Join Now', href: '/join',  current: false},
 ];
 
 function classNames(...classes) {
@@ -98,13 +97,13 @@ export default function Navigation() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12">
+          <div className="hidden lg:flex lg:gap-x-12 ">
             {navigation.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
                 className={classNames(
-                  item.current ? 'text-white' : 'text-gray-300 hover:text-white',
+                 'text-white hover:text-primary-600',
                   'text-sm font-semibold leading-6 transition-colors duration-200'
                 )}
                 aria-current={item.current ? 'page' : undefined}
@@ -115,10 +114,10 @@ export default function Navigation() {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a
-              href="#contact"
-              className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200"
+              href="#join"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
-              Contact Us
+              Get Started
             </a>
           </div>
         </nav>
