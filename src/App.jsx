@@ -4,7 +4,7 @@ import { useAnimation, useInView } from 'framer-motion';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import JoinNow from './pages/JoinNow';
-import LandingPage from './components/LandingPage';
+import LandingPage from './pages/LandingPage';
 
 // Animation variants
 const containerVariants = {
@@ -47,27 +47,35 @@ const features = [
 // Services data
 const services = [
   {
-    title: 'PPC Management',
+    title: 'Performance Marketing',
     description: 'Comprehensive pay-per-click campaign management to drive targeted traffic and conversions.'
   },
   {
-    title: 'Social Media Advertising',
+    title: 'Social Media Management',
     description: 'Strategic social media campaigns across all major platforms to engage your audience.'
   },
   {
-    title: 'SEO Optimization',
+    title: 'Website & Funnel Development',
     description: 'Improve your search engine rankings and organic traffic with our proven SEO strategies.'
   },
   {
-    title: 'Content Marketing',
+    title: 'Email & WhatsApp Marketing',
     description: 'Compelling content that resonates with your audience and drives meaningful engagement.'
   },
   {
-    title: 'Email Marketing',
+    title: 'Search Engine Optimization (SEO)',
     description: 'Targeted email campaigns that convert and build lasting customer relationships.'
   },
   {
-    title: 'Conversion Rate Optimization',
+    title: 'Creative & Branding Services',
+    description: 'Data-driven strategies to improve your website\'s conversion rates and maximize ROI.'
+  },
+  {
+    title: 'Influencer Marketing',
+    description: 'Data-driven strategies to improve your website\'s conversion rates and maximize ROI.'
+  },
+  {
+    title: 'Analytics & Consulting',
     description: 'Data-driven strategies to improve your website\'s conversion rates and maximize ROI.'
   }
 ];

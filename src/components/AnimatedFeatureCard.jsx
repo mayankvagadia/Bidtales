@@ -17,8 +17,9 @@ export default function AnimatedFeatureCard({ title, description, index }) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       </div>
-      <h3 className="text-xl font-semibold text-neutral-900 mb-3">{title}</h3>
+      <h3 className="text-xl font-semibold text-neutral-500 mb-3">{title}</h3>
       <p className="text-neutral-600">{description}</p>
     </MotionDiv>
   );
 }
+ 

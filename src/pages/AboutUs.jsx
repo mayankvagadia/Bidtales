@@ -185,27 +185,6 @@ export default function AboutUs() {
             </div>
           </div>
         </div>
-
-        {/* Stats Section */}
-        <div className="absolute bottom-0 left-0 w-full bg-white/10 backdrop-blur-sm border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/20">
-              {stats.map((stat, index) => (
-                <motion.div 
-                  key={index}
-                  className="py-6 px-4 text-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                >
-                  <div className="text-3xl md:text-4xl font-bold text-white mb-2">{stat.value}</div>
-                  <div className="text-sm uppercase tracking-wider text-white/80">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
       </MotionSection>
 
       {/* Stats Section */}

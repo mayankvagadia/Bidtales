@@ -1,7 +1,7 @@
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import AnimatedFeatureCard from './AnimatedFeatureCard';
-import AnimatedServiceCard from './AnimatedServiceCard';
+import AnimatedFeatureCard from '../components/AnimatedFeatureCard';
+import AnimatedServiceCard from '../components/AnimatedServiceCard';
 import { useEffect, useRef } from 'react';
 
 // This is a workaround to prevent unused motion lint error
@@ -172,17 +172,27 @@ export default function LandingPage({
                 <div className="space-y-6">
                   <motion.div className="overflow-hidden">
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight">
-                    <AnimatedText 
-                      text="Grow Your Business with " 
-                      className="inline-block"
-                      stagger={0.01}
-                    />
-                    <AnimatedText 
-                      text="BidTales" 
-                      className="inline-block text-primary-600"
-                      delay={0.3}
-                      stagger={0.03}
-                    />
+                    <div className="block">
+                      <AnimatedText 
+                        text="Grow Your" 
+                        className="inline-block"
+                        stagger={0.01}
+                      />
+                    </div>
+                    <div className="block">
+                      <AnimatedText 
+                        text="Business with " 
+                        className="inline-block"
+                        stagger={0.01}
+                        delay={0.15}
+                      />
+                      <AnimatedText 
+                        text="BidTales" 
+                        className="inline-block text-primary-600"
+                        delay={0.3}
+                        stagger={0.03}
+                      />
+                    </div>
                   </h1>
                 </motion.div>
                 <motion.div className="overflow-hidden">
