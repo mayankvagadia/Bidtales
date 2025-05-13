@@ -22,7 +22,7 @@ const AnimatedText = ({ text, className, delay = 0, stagger = 0.02 }) => {
 
   const containerVariants = {
     hidden: { opacity: 1 },
-    visible: (i = 1) => ({
+    visible: (/* unused */) => ({
       opacity: 1,
       transition: { 
         staggerChildren: stagger, 
@@ -107,7 +107,7 @@ export default function LandingPage({
   testimonialControls 
 }) {
   return (
-    <>
+    <div className="min-h-screen overflow-x-hidden">
       <MotionMain 
         className="flex-1"
         variants={containerVariants}
@@ -115,7 +115,7 @@ export default function LandingPage({
         animate="visible"
       >
         {/* Hero Section */}
-        <section className="relative h-screen justify-center items-center align-center flex bg-white overflow-hidden">
+        <section id="home" className="relative md:h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden">
           {/* Enhanced Dark Animated Background */}
           <div className="absolute inset-0 -z-0 overflow-hidden bg-gray-900">
             {/* Base Gradient */}
@@ -493,6 +493,6 @@ export default function LandingPage({
           </div>
         </motion.div>
       </footer>
-    </>
+    </div>
   );
 }
