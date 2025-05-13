@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useAnimation, useInView } from 'framer-motion';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
+import JoinNow from './pages/JoinNow';
 import LandingPage from './components/LandingPage';
 
 // Animation variants
@@ -75,6 +76,7 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Contact Us', href: '/contact' },
+  { name: 'Join Now', href: '/join' },
 ];
 
 function scrollToSection(e, id) {
@@ -176,6 +178,7 @@ export default function App() {
         <Routes>
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/join" element={<JoinNow />} />
           <Route 
             path="/" 
             element={
