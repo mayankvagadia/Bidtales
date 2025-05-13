@@ -84,7 +84,7 @@ export default function Navigation() {
         <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="text-2xl font-bold text-white">BidTales</span>
+              <span className="text-2xl font-bold text-white font-heading">BidTales</span>
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -104,7 +104,7 @@ export default function Navigation() {
                 href={item.href}
                 className={classNames(
                  'text-white hover:text-primary-600',
-                  'text-sm font-semibold leading-6 transition-colors duration-200'
+                  'text-sm font-semibold leading-6 transition-colors duration-200 font-sans'
                 )}
                 aria-current={item.current ? 'page' : undefined}
               >
@@ -115,7 +115,7 @@ export default function Navigation() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a
               href="#join"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-sans"
             >
               Get Started
             </a>

@@ -1,5 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap');
+@import '@fontsource/open-sans'; /* Default weight 400 */
+@import '@fontsource/open-sans/600.css'; /* Semi-bold */
+@import '@fontsource/open-sans/700.css'; /* Bold */
+@import '@fontsource/montserrat/700.css'; /* Bold for headings */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+}

@@ -5,6 +5,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ['Open Sans', 'sans-serif'],
+      heading: ['Montserrat', 'sans-serif'],
+    },
     extend: {
       colors: {
         primary: {
@@ -46,10 +50,6 @@ export default {
           800: '#1F2937',  // Charcoal Grey (dark)
           900: '#111827',
         },
-      },
-      fontFamily: {
-        sans: ['Open Sans', 'sans-serif'],
-        heading: ['Montserrat', 'sans-serif'],
       },
     },
   },

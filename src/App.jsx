@@ -117,7 +117,7 @@ export default function App() {
 
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-white">
+      <div className="min-h-screen flex flex-col bg-white font-sans">
         <Navigation />
         <ScrollToTop />
         <div className="pt-16"> {/* Add padding to account for fixed header */}
