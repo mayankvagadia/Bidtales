@@ -1,12 +1,111 @@
-import { motion } from 'framer-motion';
+import { motion, useAnimation, useInView } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import AnimatedFeatureCard from './AnimatedFeatureCard';
 import AnimatedServiceCard from './AnimatedServiceCard';
+import { useEffect, useRef } from 'react';
 
 // This is a workaround to prevent unused motion lint error
 const MotionMain = motion.main;
 
-export default function LandingPage({ containerVariants, itemVariants, features, services, testimonialRef, testimonialControls }) {
+// AnimatedText component for letter-by-letter animation
+const AnimatedText = ({ text, className, delay = 0, stagger = 0.02 }) => {
+  const letters = Array.from(text);
+  const container = useRef(null);
+  const isInView = useInView(container, { once: true, amount: 0.5 });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start('visible');
+    }
+  }, [isInView, controls]);
+
+  const containerVariants = {
+    hidden: { opacity: 1 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { 
+        staggerChildren: stagger, 
+        delayChildren: delay 
+      }
+    })
+  };
+
+  const childVariants = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        type: 'spring',
+        damping: 15,
+        stiffness: 200
+      }
+    },
+    hidden: {
+      opacity: 0,
+      y: 40,
+      rotateX: 90,
+      transition: {
+        type: 'spring',
+        damping: 15,
+        stiffness: 200
+      }
+    }
+  };
+
+  return (
+    <motion.span
+      ref={container}
+      className={`inline-block ${className}`}
+      variants={containerVariants}
+      initial="hidden"
+      animate={controls}
+    >
+      {letters.map((letter, index) => (
+        <motion.span 
+          key={index} 
+          variants={childVariants}
+          className="inline-block"
+        >
+          {letter === ' ' ? '\u00A0' : letter}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+};
+
+// Floating element with enhanced animation
+const FloatingElement = ({ children, className, delay = 0 }) => {
+  return (
+    <motion.div
+      className={className}
+      initial={{ y: 0 }}
+      animate={{
+        y: [0, -15, 0],
+      }}
+      transition={{
+        duration: 5 + Math.random() * 3,
+        repeat: Infinity,
+        repeatType: 'reverse',
+        ease: 'easeInOut',
+        delay: delay
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export default function LandingPage({ 
+  containerVariants, 
+  itemVariants, 
+  features, 
+  services, 
+  testimonialRef, 
+  featuresRef,
+  testimonialControls 
+}) {
   return (
     <>
       <MotionMain 
@@ -17,11 +116,40 @@ export default function LandingPage({ containerVariants, itemVariants, features,
       >
         {/* Hero Section */}
         <section className="relative h-screen justify-center items-center align-center flex bg-white overflow-hidden">
-          {/* Animated Background */}
-          <div className="absolute inset-0 -z-0 overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary-50 via-white to-primary-50 opacity-80"></div>
-            <div className="absolute inset-0 animate-gradient-xy bg-gradient-to-r from-primary-100/30 via-accent-100/30 to-primary-100/30"></div>
-            <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+          {/* Enhanced Dark Animated Background */}
+          <div className="absolute inset-0 -z-0 overflow-hidden bg-gray-900">
+            {/* Base Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
+            
+            {/* Animated Gradient Overlay */}
+            <div className="absolute inset-0 animate-gradient-xy bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/30 via-transparent to-purple-900/30"></div>
+            
+            {/* Animated Particles */}
+            <div className="absolute inset-0">
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute rounded-full bg-white/5"
+                  style={{
+                    width: Math.random() * 6 + 2 + 'px',
+                    height: Math.random() * 6 + 2 + 'px',
+                    left: Math.random() * 100 + '%',
+                    top: Math.random() * 100 + '%',
+                    boxShadow: '0 0 10px 2px rgba(99, 102, 241, 0.5)'
+                  }}
+                  animate={{
+                    y: [0, -20],
+                    opacity: [0.2, 0.8, 0.2],
+                  }}
+                  transition={{
+                    duration: 5 + Math.random() * 10,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay: Math.random() * 5
+                  }}
+                />
+              ))}
+            </div>
             <style jsx global>{`
               @keyframes gradient-xy {
                 0%, 100% {
@@ -35,50 +163,90 @@ export default function LandingPage({ containerVariants, itemVariants, features,
                 background-size: 200% 200%;
                 animation: gradient-xy 15s ease infinite;
               }
-              .bg-grid-pattern {
-                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23a5b4fc'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
-              }
+
             `}</style>
           </div>
           <motion.div variants={itemVariants} className="relative z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
-                  <motion.h1 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-neutral-900 leading-tight"
-                  >
-                    Grow Your Business with <span className="text-primary-600">BidTales</span>
-                  </motion.h1>
-                  <motion.p 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-lg text-neutral-600"
-                  >
-                    We help businesses scale their digital marketing efforts with data-driven strategies and expert execution.
-                  </motion.p>
+                  <motion.div className="overflow-hidden">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight">
+                    <AnimatedText 
+                      text="Grow Your Business with " 
+                      className="inline-block"
+                      stagger={0.01}
+                    />
+                    <AnimatedText 
+                      text="BidTales" 
+                      className="inline-block text-primary-600"
+                      delay={0.3}
+                      stagger={0.03}
+                    />
+                  </h1>
+                </motion.div>
+                <motion.div className="overflow-hidden">
+                  <p className="text-lg text-gray-300 mt-6 max-w-2xl">
+                    <AnimatedText 
+                      text="We help businesses scale their digital marketing efforts with data-driven strategies and expert execution."
+                      stagger={0.01}
+                      delay={0.5}
+                    />
+                  </p>
+                </motion.div>
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                     className="flex flex-col sm:flex-row gap-4 pt-4"
                   >
-                    <a 
+<motion.a 
                       href="#join" 
-                      className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+                      className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/20"
+                      whileHover={{ 
+                        scale: 1.05,
+                        boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.4)'
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ 
+                        opacity: 1, 
+                        y: 0,
+                        transition: { delay: 0.8 }
+                      }}
                     >
-                      Get Started
-                      <ArrowRightIcon className="ml-2 h-5 w-5" />
-                    </a>
-                    <a 
+                      <motion.span>Get Started</motion.span>
+                      <motion.span 
+                        className="ml-2"
+                        animate={{
+                          x: [0, 4, 0]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          repeatType: 'loop'
+                        }}
+                      >
+                        <ArrowRightIcon className="h-5 w-5" />
+                      </motion.span>
+                    </motion.a>
+                    <motion.a 
                       href="#services" 
-                      className="inline-flex items-center justify-center px-6 py-3 border border-neutral-300 text-base font-medium rounded-lg text-neutral-700 bg-white hover:bg-neutral-50 transition-colors"
+                      className="inline-flex items-center justify-center px-6 py-3 border border-gray-600 text-base font-medium rounded-lg text-white bg-gray-800/50 hover:bg-gray-800 transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-indigo-500/10"
+                      whileHover={{ 
+                        scale: 1.05,
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)'
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ 
+                        opacity: 1, 
+                        y: 0,
+                        transition: { delay: 0.9 }
+                      }}
                     >
                       Learn More
-                    </a>
+                    </motion.a>
                   </motion.div>
                 </div>
                 <motion.div 
@@ -88,15 +256,64 @@ export default function LandingPage({ containerVariants, itemVariants, features,
                   className="relative"
                 >
                   <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
-                    <img 
-                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
-                      alt="Digital Marketing"
-                      className="w-full h-auto"
-                    />
+<motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ 
+                        opacity: 1, 
+                        scale: 1,
+                        transition: { 
+                          delay: 0.5,
+                          type: 'spring',
+                          stiffness: 100,
+                          damping: 10
+                        }
+                      }}
+                      whileHover={{
+                        scale: 1.02,
+                        transition: { duration: 0.3 }
+                      }}
+                    >
+                      <img 
+                        src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
+                        alt="Digital Marketing"
+                        className="w-full h-auto rounded-xl border-2 border-white/10 shadow-2xl"
+                      />
+                    </motion.div>
                   </div>
-                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-                  <div className="absolute -top-6 -left-6 w-32 h-32 bg-accent-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-                  <div className="absolute -bottom-8 left-20 w-32 h-32 bg-accent-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+<FloatingElement className="absolute -bottom-6 -right-6 w-64 h-64 bg-blue-900/30 rounded-full mix-blend-overlay filter blur-3xl opacity-40" delay={0.2} />
+                  <FloatingElement className="absolute -top-16 -left-16 w-80 h-80 bg-purple-900/30 rounded-full mix-blend-overlay filter blur-3xl opacity-40" delay={0.4} />
+                  <FloatingElement className="absolute -bottom-8 left-1/4 w-72 h-72 bg-indigo-900/30 rounded-full mix-blend-overlay filter blur-3xl opacity-40" delay={0.6} />
+                  
+                  {/* Additional floating elements for more depth */}
+                  <motion.div 
+                    className="absolute top-1/4 right-1/4 w-16 h-16 rounded-full bg-blue-500/20 backdrop-blur-sm"
+                    animate={{
+                      y: [0, -20, 0],
+                      x: [0, 10, 0],
+                      scale: [1, 1.1, 1]
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      repeatType: 'reverse',
+                      ease: 'easeInOut',
+                      delay: 0.5
+                    }}
+                  />
+                  <motion.div 
+                    className="absolute bottom-1/3 left-1/4 w-24 h-24 rounded-full bg-indigo-500/20 backdrop-blur-sm"
+                    animate={{
+                      y: [0, -15, 0],
+                      x: [0, -15, 0],
+                      rotate: [0, 360]
+                    }}
+                    transition={{
+                      duration: 15,
+                      repeat: Infinity,
+                      repeatType: 'reverse',
+                      ease: 'easeInOut'
+                    }}
+                  />
                 </motion.div>
               </div>
             </div>
@@ -104,7 +321,7 @@ export default function LandingPage({ containerVariants, itemVariants, features,
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-20 bg-white">
+      <section id="features" ref={featuresRef} className="py-20 bg-gray-900">
           <motion.div variants={itemVariants}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center max-w-3xl mx-auto mb-16">
@@ -156,7 +373,7 @@ export default function LandingPage({ containerVariants, itemVariants, features,
         </section>
 
         {/* Testimonial Section */}
-        <section id="testimonials" className="py-20 bg-white">
+      <section id="testimonials" ref={testimonialRef} className="py-20 bg-gray-900 border-t border-gray-800">
           <motion.div variants={itemVariants}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <motion.div 
@@ -172,7 +389,7 @@ export default function LandingPage({ containerVariants, itemVariants, features,
                   </blockquote>
                   <div className="flex items-center justify-center">
                     <div className="h-12 w-12 rounded-full bg-primary-200 flex items-center justify-center text-primary-600 font-bold text-lg">
-                      S
+                      D
                     </div>
                     <div className="ml-4 text-left">
                       <p className="font-medium text-neutral-900">Divyam Bajaj</p>
