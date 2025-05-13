@@ -424,7 +424,7 @@ export default function LandingPage({
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a 
-                  href="#" 
+                  href="/join" 
                   className="px-8 py-4 bg-accent-500 text-white rounded-lg hover:bg-accent-600 transition-colors font-medium shadow-md hover:shadow-lg"
                 >
                   Get Started for Free

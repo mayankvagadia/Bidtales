@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { PaperAirplaneIcon, EnvelopeIcon, PhoneIcon, MapPinIcon, ClockIcon, UserGroupIcon, BriefcaseIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { FaInstagram, FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 // Animation variants
 const ITEM_VARIANTS = {
@@ -54,23 +55,45 @@ const ContactUs = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const form = useRef();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Replace these with your actual EmailJS service ID, template ID, and public key
+    const serviceId = 'service_fkx1skm';
+    const templateId = 'template_dp2kxmq';
+    const publicKey = '237ue0ZMuf8ZxXSio';
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Form submitted:', formData);
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-      setTimeout(() => setSubmitStatus(null), 5000);
+      console.log('Sending form data:', formData);
+      
+      // Send email using EmailJS
+      const result = await emailjs.sendForm(serviceId, templateId, form.current, publicKey);
+      console.log('EmailJS response:', result);
+      
+      if (result.status === 200) {
+        console.log('Form submitted successfully:', formData);
+        setSubmitStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          title: '',
+          message: ''
+        });
+        setTimeout(() => setSubmitStatus(null), 5000);
+      } else {
+        throw new Error('Failed to send email');
+      }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Error details:', {
+        error,
+        message: error.message,
+        response: error.response,
+        status: error.status,
+        text: error.text
+      });
       setSubmitStatus('error');
       setTimeout(() => setSubmitStatus(null), 5000);
     } finally {
@@ -226,7 +249,7 @@ const ContactUs = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Send us a message</h2>
               <p className="text-gray-600 mb-8">We'll get back to you as soon as possible</p>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
