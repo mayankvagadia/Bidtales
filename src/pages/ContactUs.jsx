@@ -1,26 +1,35 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion as Motion, AnimatePresence } from 'framer-motion';
-import { PaperAirplaneIcon, EnvelopeIcon, PhoneIcon, MapPinIcon, ClockIcon, UserGroupIcon, BriefcaseIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
-import { FaInstagram, FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa';
-import emailjs from '@emailjs/browser';
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion as Motion, AnimatePresence } from "framer-motion";
+import {
+  PaperAirplaneIcon,
+  EnvelopeIcon,
+  PhoneIcon,
+  MapPinIcon,
+  ClockIcon,
+  UserGroupIcon,
+  BriefcaseIcon,
+  CheckCircleIcon,
+} from "@heroicons/react/24/outline";
+import { FaInstagram, FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+import emailjs from "@emailjs/browser";
 
 // Animation variants
 const ITEM_VARIANTS = {
   hidden: { opacity: 0, y: 20 },
-  show: { 
-    opacity: 1, 
+  show: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.16, 1, 0.3, 1]
-    }
-  }
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
 };
 
 // Reusable Contact Card Component
 const ContactCard = ({ icon: Icon, title, children }) => (
-  <Motion.div 
+  <Motion.div
     variants={ITEM_VARIANTS}
     className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
   >
@@ -30,9 +39,7 @@ const ContactCard = ({ icon: Icon, title, children }) => (
       </div>
       <div>
         <h3 className="font-medium text-gray-900">{title}</h3>
-        <div className="mt-2 text-gray-600">
-          {children}
-        </div>
+        <div className="mt-2 text-gray-600">{children}</div>
       </div>
     </div>
   </Motion.div>
@@ -41,10 +48,10 @@ const ContactCard = ({ icon: Icon, title, children }) => (
 const ContactUs = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,7 +59,7 @@ const ContactUs = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const form = useRef();
@@ -62,39 +69,44 @@ const ContactUs = () => {
     setIsSubmitting(true);
 
     // Replace these with your actual EmailJS service ID, template ID, and public key
-    const serviceId = 'service_fkx1skm';
-    const templateId = 'template_dp2kxmq';
-    const publicKey = '237ue0ZMuf8ZxXSio';
+    const serviceId = "service_fkx1skm";
+    const templateId = "template_dp2kxmq";
+    const publicKey = "237ue0ZMuf8ZxXSio";
 
     try {
-      console.log('Sending form data:', formData);
-      
+      console.log("Sending form data:", formData);
+
       // Send email using EmailJS
-      const result = await emailjs.sendForm(serviceId, templateId, form.current, publicKey);
-      console.log('EmailJS response:', result);
-      
+      const result = await emailjs.sendForm(
+        serviceId,
+        templateId,
+        form.current,
+        publicKey
+      );
+      console.log("EmailJS response:", result);
+
       if (result.status === 200) {
-        console.log('Form submitted successfully:', formData);
-        setSubmitStatus('success');
+        console.log("Form submitted successfully:", formData);
+        setSubmitStatus("success");
         setFormData({
-          name: '',
-          email: '',
-          title: '',
-          message: ''
+          name: "",
+          email: "",
+          title: "",
+          message: "",
         });
         setTimeout(() => setSubmitStatus(null), 5000);
       } else {
-        throw new Error('Failed to send email');
+        throw new Error("Failed to send email");
       }
     } catch (error) {
-      console.error('Error details:', {
+      console.error("Error details:", {
         error,
         message: error.message,
         response: error.response,
         status: error.status,
-        text: error.text
+        text: error.text,
       });
-      setSubmitStatus('error');
+      setSubmitStatus("error");
       setTimeout(() => setSubmitStatus(null), 5000);
     } finally {
       setIsSubmitting(false);
@@ -110,11 +122,12 @@ const ContactUs = () => {
             Let's Build Big Together – Join BidTales
           </h1>
           <p className="text-xl text-indigo-100 max-w-3xl mx-auto mb-12">
-            Don't wait. The next opportunity is one click away.
+            Get in touch! If you would like to learn more about our services or
+            have a specific inquiry, please don’t hesitate to contact us.
           </p>
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* For Brands */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-left">
+          {/* <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            
+            <div className="hidden bg-white/10 backdrop-blur-sm rounded-xl p-6 text-left">
               <div className="flex items-center mb-4">
                 <BriefcaseIcon className="h-8 w-8 mr-3 text-white" />
                 <h2 className="text-2xl font-bold">For Brands</h2>
@@ -135,8 +148,8 @@ const ContactUs = () => {
               </ul>
             </div>
 
-            {/* For Freelancers */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-left">
+          
+            <div className="hidden bg-white/10 backdrop-blur-sm rounded-xl p-6 text-left">
               <div className="flex items-center mb-4">
                 <UserGroupIcon className="h-8 w-8 mr-3 text-white" />
                 <h2 className="text-2xl font-bold">For Freelancers</h2>
@@ -160,59 +173,253 @@ const ContactUs = () => {
                 </li>
               </ul>
             </div>
-          </div>
-          <button 
-            onClick={() => navigate('/join')}
-            className="mt-12 bg-white text-indigo-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-indigo-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
+          </div> */}
+          <button
+            onClick={() => navigate("/join")}
+            className="hidden mt-12 bg-white text-indigo-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-indigo-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
             Join Now
           </button>
         </div>
       </div>
 
+      {/* Contact Form Section */}
+      <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div className="p-8 sm:p-10">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Send us a message
+              </h2>
+              <p className="text-gray-600 mb-8">
+                We'll get back to you as soon as possible
+              </p>
+
+              <form ref={form} onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                      placeholder="John Doe"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                      placeholder="you@example.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="subject"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                    placeholder="How can we help?"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                    placeholder="Your message here..."
+                    required
+                  />
+                </div>
+
+                <div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-accent-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-accent-600 transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-70"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg
+                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <PaperAirplaneIcon className="h-5 w-5 mr-2" />
+                        Send Message
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <AnimatePresence>
+                  {submitStatus === "success" && (
+                    <Motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-4 p-4 bg-green-50 border border-green-100 rounded-lg">
+                        <p className="text-green-800 font-medium">
+                          Message sent successfully!
+                        </p>
+                        <p className="text-sm text-green-700 mt-1">
+                          We'll get back to you soon.
+                        </p>
+                      </div>
+                    </Motion.div>
+                  )}
+                  {submitStatus === "error" && (
+                    <Motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-4 p-4 bg-red-50 border border-red-100 rounded-lg">
+                        <p className="text-red-800 font-medium">
+                          Something went wrong
+                        </p>
+                        <p className="text-sm text-red-700 mt-1">
+                          Please try again later or contact us directly.
+                        </p>
+                      </div>
+                    </Motion.div>
+                  )}
+                </AnimatePresence>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Contact Info Section */}
       <div className="bg-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Contact Information</h2>
-          
+          <h2 className="hidden text-3xl font-bold text-center text-gray-900 mb-12">
+            Contact Information
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Contact Info Card */}
             <div className="bg-gray-50 rounded-xl p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">BidTales Marketing Pvt. Ltd.</h3>
-              
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                BidTales Marketing Pvt. Ltd.
+              </h3>
+
               <div className="space-y-4">
                 <div className="flex items-start">
                   <EnvelopeIcon className="h-6 w-6 text-accent-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-gray-500 text-sm">Email</p>
-                    <a href="mailto:bidtales@gmail.com" className="text-gray-900 hover:text-accent-600">bidtales@gmail.com</a>
+                    <a
+                      href="mailto:bidtales@gmail.com"
+                      className="text-gray-900 hover:text-accent-600"
+                    >
+                      info@bidtales.com
+                    </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <PhoneIcon className="h-6 w-6 text-accent-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-gray-500 text-sm">Phone</p>
-                    <a href="tel:+916026767767" className="text-gray-900 hover:text-accent-600">+91 6026767767</a>
+                    <a
+                      href="tel:+916026767767"
+                      className="text-gray-900 hover:text-accent-600"
+                    >
+                      +91 6026767767
+                    </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <MapPinIcon className="h-6 w-6 text-accent-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-gray-500 text-sm">Location</p>
-                    <p className="text-gray-900">Hisar, Haryana, India – 125121</p>
+                    <p className="text-gray-900">
+                      Hisar, Haryana, India – 125121
+                    </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <FaInstagram className="h-6 w-6 text-accent-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-gray-500 text-sm">Instagram</p>
-                    <a href="https://instagram.com/bidtales" target="_blank" rel="noopener noreferrer" className="text-gray-900 hover:text-accent-600">@bidtales</a>
+                    <a
+                      href="https://instagram.com/bidtales"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-900 hover:text-accent-600"
+                    >
+                      @bidtales_media
+                    </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <ClockIcon className="h-6 w-6 text-accent-600 mr-3 mt-1 flex-shrink-0" />
                   <div>
@@ -236,137 +443,6 @@ const ContactUs = () => {
                 referrerPolicy="no-referrer-when-downgrade"
                 className="rounded-lg"
               />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Contact Form Section */}
-      <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="p-8 sm:p-10">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Send us a message</h2>
-              <p className="text-gray-600 mb-8">We'll get back to you as soon as possible</p>
-              
-              <form ref={form} onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                      placeholder="John Doe"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                      placeholder="you@example.com"
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                    placeholder="How can we help?"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows="5"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                    placeholder="Your message here..."
-                    required
-                  />
-                </div>
-
-                <div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-accent-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-accent-600 transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-70"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <PaperAirplaneIcon className="h-5 w-5 mr-2" />
-                        Send Message
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                <AnimatePresence>
-                  {submitStatus === 'success' && (
-                    <Motion.div 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="mt-4 p-4 bg-green-50 border border-green-100 rounded-lg">
-                        <p className="text-green-800 font-medium">Message sent successfully!</p>
-                        <p className="text-sm text-green-700 mt-1">We'll get back to you soon.</p>
-                      </div>
-                    </Motion.div>
-                  )}
-                  {submitStatus === 'error' && (
-                    <Motion.div 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="mt-4 p-4 bg-red-50 border border-red-100 rounded-lg">
-                        <p className="text-red-800 font-medium">Something went wrong</p>
-                        <p className="text-sm text-red-700 mt-1">Please try again later or contact us directly.</p>
-                      </div>
-                    </Motion.div>
-                  )}
-                </AnimatePresence>
-              </form>
             </div>
           </div>
         </div>

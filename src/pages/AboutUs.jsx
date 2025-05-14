@@ -1,6 +1,12 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ArrowRightIcon, LightBulbIcon, ChartBarIcon, ShieldCheckIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import {
+  ArrowRightIcon,
+  LightBulbIcon,
+  ChartBarIcon,
+  ShieldCheckIcon,
+  RocketLaunchIcon,
+} from "@heroicons/react/24/outline";
 
 // Motion components
 const MotionDiv = motion.div;
@@ -15,9 +21,9 @@ const fadeInUp = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: [0.16, 1, 0.3, 1]
-    }
-  }
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
 };
 
 const FeatureCard = ({ icon, title, description, index }) => (
@@ -42,60 +48,62 @@ export default function AboutUs() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const stats = [
-    { value: '100+', label: 'Happy Clients' },
-    { value: '5+', label: 'Years Experience' },
-    { value: '200+', label: 'Projects Completed' },
-    { value: '24/7', label: 'Support' }
+    { value: "100+", label: "Happy Clients" },
+    { value: "5+", label: "Years Experience" },
+    { value: "200+", label: "Projects Completed" },
+    { value: "24/7", label: "Support" },
   ];
 
   const team = [
     {
-      name: 'Alex Johnson',
-      role: 'CEO & Founder',
-      image: 'https://randomuser.me/api/portraits/men/32.jpg',
-      bio: 'Marketing strategist with 10+ years of experience in digital transformation.'
+      name: "Alex Johnson",
+      role: "CEO & Founder",
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
+      bio: "Marketing strategist with 10+ years of experience in digital transformation.",
     },
     {
-      name: 'Sarah Williams',
-      role: 'Creative Director',
-      image: 'https://randomuser.me/api/portraits/women/44.jpg',
-      bio: 'Passionate about creating compelling brand stories that resonate with audiences.'
+      name: "Sarah Williams",
+      role: "Creative Director",
+      image: "https://randomuser.me/api/portraits/women/44.jpg",
+      bio: "Passionate about creating compelling brand stories that resonate with audiences.",
     },
     {
-      name: 'Michael Chen',
-      role: 'Lead Developer',
-      image: 'https://randomuser.me/api/portraits/men/22.jpg',
-      bio: 'Tech enthusiast who turns innovative ideas into seamless digital experiences.'
+      name: "Michael Chen",
+      role: "Lead Developer",
+      image: "https://randomuser.me/api/portraits/men/22.jpg",
+      bio: "Tech enthusiast who turns innovative ideas into seamless digital experiences.",
     },
     {
-      name: 'Emily Rodriguez',
-      role: 'Marketing Strategist',
-      image: 'https://randomuser.me/api/portraits/women/68.jpg',
-      bio: 'Data-driven marketer with a talent for crafting high-conversion campaigns.'
-    }
+      name: "Emily Rodriguez",
+      role: "Marketing Strategist",
+      image: "https://randomuser.me/api/portraits/women/68.jpg",
+      bio: "Data-driven marketer with a talent for crafting high-conversion campaigns.",
+    },
   ];
 
   const values = [
     {
       icon: LightBulbIcon,
-      title: 'Innovation',
-      description: 'We embrace change and continuously seek new ways to solve problems.'
+      title: "Innovation",
+      description:
+        "We embrace change and continuously seek new ways to solve problems.",
     },
     {
       icon: ChartBarIcon,
-      title: 'Excellence',
-      description: 'We strive for the highest standards in everything we do.'
+      title: "Excellence",
+      description: "We strive for the highest standards in everything we do.",
     },
     {
       icon: ShieldCheckIcon,
-      title: 'Integrity',
-      description: 'We build trust through transparency and ethical practices.'
+      title: "Integrity",
+      description: "We build trust through transparency and ethical practices.",
     },
     {
       icon: RocketLaunchIcon,
-      title: 'Growth',
-      description: 'We are committed to the continuous improvement of our team and clients.'
-    }
+      title: "Growth",
+      description:
+        "We are committed to the continuous improvement of our team and clients.",
+    },
   ];
 
   return (
@@ -117,19 +125,19 @@ export default function AboutUs() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-32">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <motion.div 
+              <motion.div
                 className="absolute -left-8 -top-8 w-32 h-32 bg-accent-500/20 rounded-full filter blur-3xl"
                 animate={{
                   scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.4, 0.2]
+                  opacity: [0.2, 0.4, 0.2],
                 }}
                 transition={{
                   duration: 8,
                   repeat: Infinity,
-                  repeatType: 'reverse'
+                  repeatType: "reverse",
                 }}
               />
-              <motion.span 
+              <motion.span
                 className="inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white/90 text-sm font-medium mb-6 border border-white/20"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -143,30 +151,33 @@ export default function AboutUs() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                Building Digital <span className="text-accent-400">Success</span> Stories
+                Building Digital{" "}
+                <span className="text-accent-400">Success</span> Stories
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-xl text-white/90 mb-8 max-w-2xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                We're a passionate team of strategists, creatives, and technologists dedicated to helping businesses thrive in the digital landscape.
+                We're a passionate team of strategists, creatives, and
+                technologists dedicated to helping businesses thrive in the
+                digital landscape.
               </motion.p>
-              <motion.div 
+              <motion.div
                 className="flex flex-wrap gap-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
-                <a 
-                  href="#our-team" 
+                <a
+                  href="#our-team"
                   className="px-8 py-4 bg-accent-500 hover:bg-accent-600 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   Meet Our Team
                 </a>
-                <a 
-                  href="#our-values" 
+                <a
+                  href="#our-values"
                   className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
                 >
                   Our Values
@@ -175,8 +186,8 @@ export default function AboutUs() {
             </div>
             <div className="relative">
               <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform rotate-1 hover:rotate-0 transition-transform duration-500">
-                <img 
-                  src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
+                <img
+                  src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                   alt="Team collaboration"
                   className="w-full h-auto"
                 />
@@ -192,7 +203,7 @@ export default function AboutUs() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
             {stats.map((stat, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="text-center p-6 bg-neutral-50 rounded-xl hover:bg-neutral-100 transition-colors"
                 initial={{ opacity: 0, y: 20 }}
@@ -200,14 +211,16 @@ export default function AboutUs() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="text-4xl font-bold text-primary-600 mb-2">{stat.value}</div>
+                <div className="text-4xl font-bold text-primary-600 mb-2">
+                  {stat.value}
+                </div>
                 <div className="text-gray-600">{stat.label}</div>
               </motion.div>
             ))}
           </div>
-          
+
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <motion.span 
+            <motion.span
               className="inline-block px-6 py-2 rounded-full bg-accent-500/10 text-accent-600 text-sm font-medium mb-4 border border-accent-500/20"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -215,29 +228,31 @@ export default function AboutUs() {
             >
               Our Guiding Principles
             </motion.span>
-            <motion.h2 
+            <motion.h2
               className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              Values That Drive <span className="text-primary-600">Our Success</span>
+              Values That Drive{" "}
+              <span className="text-primary-600">Our Success</span>
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="text-lg text-gray-600 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              These core principles guide every decision we make and every action we take.
+              These core principles guide every decision we make and every
+              action we take.
             </motion.p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {values.map((value, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="relative group bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-accent-100"
                 initial={{ opacity: 0, y: 30 }}
@@ -245,12 +260,26 @@ export default function AboutUs() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <div className={`absolute top-0 left-8 w-1 h-16 bg-gradient-to-b ${index % 2 === 0 ? 'from-primary-500 to-accent-400' : 'from-accent-400 to-primary-500'}`}></div>
+                <div
+                  className={`absolute top-0 left-8 w-1 h-16 bg-gradient-to-b ${
+                    index % 2 === 0
+                      ? "from-primary-500 to-accent-400"
+                      : "from-accent-400 to-primary-500"
+                  }`}
+                ></div>
                 <div className="pl-10">
-                  <div className={`w-12 h-12 ${index % 2 === 0 ? 'bg-primary-100 text-primary-600' : 'bg-accent-100 text-accent-600'} rounded-lg flex items-center justify-center mb-6`}>
+                  <div
+                    className={`w-12 h-12 ${
+                      index % 2 === 0
+                        ? "bg-primary-100 text-primary-600"
+                        : "bg-accent-100 text-accent-600"
+                    } rounded-lg flex items-center justify-center mb-6`}
+                  >
                     {React.createElement(value.icon, { className: "w-6 h-6" })}
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{value.title}</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    {value.title}
+                  </h3>
                   <p className="text-gray-600">{value.description}</p>
                 </div>
               </motion.div>
@@ -260,9 +289,9 @@ export default function AboutUs() {
       </section>
 
       {/* Our Team Section */}
-      <MotionSection 
+      <MotionSection
         id="our-team"
-        className="py-24 bg-white"
+        className="hidden py-24 bg-white"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -270,7 +299,7 @@ export default function AboutUs() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <motion.span 
+            <motion.span
               className="inline-block px-6 py-2 rounded-full bg-primary-100 text-primary-700 text-sm font-medium mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -278,29 +307,31 @@ export default function AboutUs() {
             >
               Meet The Team
             </motion.span>
-            <motion.h2 
+            <motion.h2
               className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              The <span className="text-primary-600">Brilliant Minds</span> Behind Our Success
+              The <span className="text-primary-600">Brilliant Minds</span>{" "}
+              Behind Our Success
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="text-lg text-gray-600 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              Our diverse team of experts brings together creativity, technical expertise, and business acumen.
+              Our diverse team of experts brings together creativity, technical
+              expertise, and business acumen.
             </motion.p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((member, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="group relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-500"
                 initial={{ opacity: 0, y: 30 }}
@@ -309,8 +340,8 @@ export default function AboutUs() {
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
                 <div className="relative overflow-hidden h-80">
-                  <img 
-                    src={member.image} 
+                  <img
+                    src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                   />
@@ -321,15 +352,17 @@ export default function AboutUs() {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
+                  <h3 className="text-xl font-bold text-gray-900">
+                    {member.name}
+                  </h3>
                   <p className="text-accent-600 font-medium">{member.role}</p>
                 </div>
               </motion.div>
             ))}
           </div>
-          
+
           {/* Mission Statement */}
-          <motion.div 
+          <motion.div
             className="mt-24 bg-gradient-to-r from-primary-50 to-accent-50 rounded-2xl p-12 relative overflow-hidden"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -339,10 +372,14 @@ export default function AboutUs() {
             <div className="absolute top-0 right-0 w-64 h-64 -mr-20 -mt-20 bg-accent-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
             <div className="relative z-10">
               <div className="max-w-4xl mx-auto text-center">
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Mission</h3>
+                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                  Our Mission
+                </h3>
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  To empower businesses of all sizes with innovative digital solutions that drive growth, 
-                  foster meaningful connections, and create lasting impact in an ever-evolving digital landscape.
+                  To empower businesses of all sizes with innovative digital
+                  solutions that drive growth, foster meaningful connections,
+                  and create lasting impact in an ever-evolving digital
+                  landscape.
                 </p>
               </div>
             </div>
@@ -351,8 +388,8 @@ export default function AboutUs() {
       </MotionSection>
 
       {/* CTA Section */}
-      <MotionSection 
-        id="join"
+      <MotionSection
+        id="/join"
         className="py-20 bg-gradient-to-r from-primary-700 via-primary-800 to-primary-900 text-white relative overflow-hidden"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -363,7 +400,7 @@ export default function AboutUs() {
         <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-accent-400/10 blur-3xl"></div>
         <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-accent-400/10 blur-3xl"></div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold mb-6"
             variants={fadeInUp}
             initial="hidden"
