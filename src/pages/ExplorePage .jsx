@@ -5,9 +5,6 @@ import {
   Smartphone,
   Palette,
   Globe,
-  Share2,
-  TrendingUp,
-  ChevronRight,
   Star,
   Users,
   Clock,
@@ -104,8 +101,10 @@ const ExplorePage = () => {
         "Create stunning mobile applications that deliver exceptional performance across all devices and platforms.",
       features: [
         "React Native",
+        "Flutter",
         "Native iOS/Android",
         "Cross-platform",
+        "Play Store Deployment",
         "App Store Deployment",
       ],
       details: {
@@ -763,7 +762,7 @@ const ExplorePage = () => {
           isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         }`}
       >
-        <div className="container mx-auto px-6 py-8">
+        <div className="container mx-auto px-6 py-14">
           {/* Hero Section */}
           <div
             className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${currentService.color} p-8 mb-8`}
