@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,6 +11,7 @@ import ContactUs from "./pages/ContactUs";
 import JoinNow from "./pages/JoinNow";
 import LandingPage from "./pages/LandingPage";
 import Navigation from "./components/Navigation";
+import ExplorePage from "./pages/ExplorePage ";
 
 // Animation variants
 const containerVariants = {
@@ -96,6 +97,7 @@ export default function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/join" element={<JoinNow />} />
+            <Route path="/explore/:serviceName" element={<ExplorePage />} />
             <Route
               path="/"
               element={

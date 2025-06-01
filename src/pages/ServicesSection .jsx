@@ -9,14 +9,17 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ServicesSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
   const sectionRef = useRef(null);
+  const navigate = useNavigate();
 
   const services = [
     {
+      id: "web-development",
       icon: <Code className="w-7 h-7" />,
       title: "Web Development",
       description: "Cutting-edge web solutions that captivate and convert",
@@ -33,6 +36,7 @@ const ServicesSection = () => {
       glowColor: "emerald",
     },
     {
+      id: "mobile-development",
       icon: <Smartphone className="w-7 h-7" />,
       title: "Mobile Development",
       description: "Native mobile experiences that users absolutely love",
@@ -49,6 +53,7 @@ const ServicesSection = () => {
       glowColor: "purple",
     },
     {
+      id: "ui-ux-design",
       icon: <Palette className="w-7 h-7" />,
       title: "UI/UX Design",
       description: "Designs that tell stories and drive engagement",
@@ -65,6 +70,7 @@ const ServicesSection = () => {
       glowColor: "orange",
     },
     {
+      id: "performance-marketing",
       icon: <Globe className="w-7 h-7" />,
       title: "Performance Marketing",
       description:
@@ -82,6 +88,7 @@ const ServicesSection = () => {
       glowColor: "blue",
     },
     {
+      id: "social-media-management",
       icon: <Globe className="w-7 h-7" />,
       title: "Social Media Management",
       description:
@@ -99,6 +106,7 @@ const ServicesSection = () => {
       glowColor: "pink",
     },
     {
+      id: "website-funnel-development",
       icon: <Code className="w-7 h-7" />,
       title: "Website & Funnel Development",
       description:
@@ -116,6 +124,7 @@ const ServicesSection = () => {
       glowColor: "emerald",
     },
     {
+      id: "email-whatsapp-marketing",
       icon: <Smartphone className="w-7 h-7" />,
       title: "Email & WhatsApp Marketing",
       description:
@@ -133,6 +142,7 @@ const ServicesSection = () => {
       glowColor: "green",
     },
     {
+      id: "seo",
       icon: <Shield className="w-7 h-7" />,
       title: "Search Engine Optimization (SEO)",
       description:
@@ -150,6 +160,7 @@ const ServicesSection = () => {
       glowColor: "blue",
     },
     {
+      id: "creative-branding",
       icon: <Palette className="w-7 h-7" />,
       title: "Creative & Branding Services",
       description:
@@ -167,6 +178,7 @@ const ServicesSection = () => {
       glowColor: "purple",
     },
     {
+      id: "influencer-marketing",
       icon: <Zap className="w-7 h-7" />,
       title: "Influencer Marketing",
       description:
@@ -184,6 +196,7 @@ const ServicesSection = () => {
       glowColor: "orange",
     },
     {
+      id: "analytics-consulting",
       icon: <Sparkles className="w-7 h-7" />,
       title: "Analytics & Consulting",
       description:
@@ -218,6 +231,11 @@ const ServicesSection = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  const handleServiceClick = (service) => {
+    console.log(service.id);
+    navigate(`/explore/${service.id}`);
+  };
 
   return (
     <section
@@ -345,6 +363,7 @@ const ServicesSection = () => {
                   {/* CTA Button */}
                   <button
                     className={`flex items-center gap-2 text-white font-semibold py-3 px-6 rounded-xl bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:scale-105 shadow-lg hover:shadow-xl`}
+                    onClick={() => handleServiceClick(service)}
                   >
                     Explore
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
