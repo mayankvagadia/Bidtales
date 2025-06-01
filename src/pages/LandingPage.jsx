@@ -5,6 +5,7 @@ import AnimatedServiceCard from "../components/AnimatedServiceCard";
 import { useEffect, useRef, useState } from "react";
 import bg_stats from "../assets/bg_stats.png";
 import TechnologiesSection from "./TechnologiesSection";
+import ServicesSection from "./ServicesSection ";
 
 // This is a workaround to prevent unused motion lint error
 const MotionMain = motion.main;
@@ -369,32 +370,7 @@ export default function LandingPage({
           </motion.div>
         </section>
 
-        {/* Services Section */}
-        <section id="services" className="py-20 bg-neutral-50">
-          <motion.div variants={itemVariants}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center max-w-3xl mx-auto mb-16">
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-neutral-900 mb-6">
-                  Our Services
-                </h2>
-                <p className="text-lg text-neutral-600">
-                  Comprehensive digital marketing solutions tailored to your
-                  business needs.
-                </p>
-              </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {services.map((service, index) => (
-                  <AnimatedServiceCard
-                    key={index}
-                    title={service.title}
-                    description={service.description}
-                    index={index}
-                  />
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </section>
+        <ServicesSection />
 
         <TechnologiesSection />
 

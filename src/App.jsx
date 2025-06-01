@@ -52,51 +52,6 @@ const features = [
       "Access our library of high-converting ad creatives and templates designed by our expert team.",
   },
 ];
-
-// Services data
-const services = [
-  {
-    title: "Performance Marketing",
-    description:
-      "Comprehensive pay-per-click campaign management to drive targeted traffic and conversions.",
-  },
-  {
-    title: "Social Media Management",
-    description:
-      "Strategic social media campaigns across all major platforms to engage your audience.",
-  },
-  {
-    title: "Website & Funnel Development",
-    description:
-      "Improve your search engine rankings and organic traffic with our proven SEO strategies.",
-  },
-  {
-    title: "Email & WhatsApp Marketing",
-    description:
-      "Compelling content that resonates with your audience and drives meaningful engagement.",
-  },
-  {
-    title: "Search Engine Optimization (SEO)",
-    description:
-      "Targeted email campaigns that convert and build lasting customer relationships.",
-  },
-  {
-    title: "Creative & Branding Services",
-    description:
-      "Data-driven strategies to improve your website's conversion rates and maximize ROI.",
-  },
-  {
-    title: "Influencer Marketing",
-    description:
-      "Data-driven strategies to improve your website's conversion rates and maximize ROI.",
-  },
-  {
-    title: "Analytics & Consulting",
-    description:
-      "Data-driven strategies to improve your website's conversion rates and maximize ROI.",
-  },
-];
-
 // Wrapper component to handle scroll behavior
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -148,7 +103,6 @@ export default function App() {
                   containerVariants={containerVariants}
                   itemVariants={itemVariants}
                   features={features}
-                  services={services}
                   testimonialRef={testimonialRef}
                   featuresRef={featuresRef}
                   servicesRef={servicesRef}
