@@ -333,6 +333,9 @@ export default function LandingPage({
                     autoPlay
                     muted
                     loop
+                    playsInline
+                    preload="metadata"
+                    controls={false}
                   >
                     <source src="/video/service.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
