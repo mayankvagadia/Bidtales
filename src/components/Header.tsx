@@ -1,25 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Menu, X } from "lucide-react";
 
-const Header = () => {
+interface NavigationItem {
+  name: string;
+  href: string;
+  section: string;
+}
+
+interface HeaderProps {
+  sectionRefs: {
+    [key: string]: React.RefObject<HTMLElement>;
+  };
+}
+
+const Header = ({ sectionRefs }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('home');
+
+  const memoizedSectionRefs = useMemo(() => sectionRefs, [sectionRefs]);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      
+      // Check which section is currently visible
+      let currentSection = 'home';
+      let minDistance = Infinity;
+      
+      Object.entries(memoizedSectionRefs).forEach(([key, ref]) => {
+        const element = ref.current;
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const distance = Math.abs(rect.top);
+          
+          // Check if this section is closer to the top than the current closest
+          if (distance < minDistance && rect.top <= 150 && rect.top >= -150) {
+            currentSection = key;
+            minDistance = distance;
+          }
+        }
+      });
+      
+      // If no section is found within the visible range, use the first visible section
+      if (currentSection === 'home') {
+        Object.entries(memoizedSectionRefs).forEach(([key, ref]) => {
+          const element = ref.current;
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top >= 0 && rect.top < window.innerHeight) {
+              currentSection = key;
+              return;
+            }
+          }
+        });
+      }
+      
+      setActiveSection(currentSection);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [memoizedSectionRefs]); // Add sectionRefs to dependencies
 
-  const navigation = [
-    { name: "Home", href: "#home" },
-    { name: "Services", href: "#services" },
-    { name: "About", href: "#about" },
-    { name: "Case Studies", href: "#case-studies" },
-    { name: "Blog", href: "#blog" },
-    { name: "Contact", href: "#contact" },
+  const navigation: NavigationItem[] = [
+    { name: "Home", href: "#home", section: "home" },
+    { name: "Services", href: "#services", section: "services" },
+    { name: "About", href: "#about", section: "about" },
+    { name: "Case Studies", href: "#case-studies", section: "caseStudies" },
+    { name: "Blog", href: "#blog", section: "blog" },
+    { name: "Contact", href: "#contact", section: "contact" },
   ];
 
   return (
@@ -39,13 +89,24 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            {navigation.map((item, index) => (
+            {navigation.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className={`transition-colors duration-200 hover:text-blue-400 ${
-                  index === 0 ? "text-blue-400" : "text-gray-300"
+                className={`transition-colors duration-200 ${
+                  activeSection === item.section ? "text-blue-400" : "text-gray-300 hover:text-blue-400"
                 }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveSection(item.section);
+                  setIsMenuOpen(false);
+                  
+                  // Scroll to the section
+                  const element = memoizedSectionRefs[item.section as keyof typeof memoizedSectionRefs]?.current;
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 {item.name}
               </a>
@@ -76,14 +137,17 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden bg-gray-900/95 backdrop-blur-sm border-t border-gray-700">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item, index) => (
+              {navigation.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`block px-3 py-2 transition-colors duration-200 hover:text-blue-400 ${
-                    index === 0 ? "text-blue-400" : "text-gray-300"
+                  className={`block px-3 py-2 transition-colors duration-200 ${
+                    activeSection === item.section ? "text-blue-400" : "text-gray-300 hover:text-blue-400"
                   }`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    setActiveSection(item.section);
+                    setIsMenuOpen(false);
+                  }}
                 >
                   {item.name}
                 </a>

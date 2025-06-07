@@ -38,7 +38,7 @@ const Technologies = () => {
   // };
 
   return (
-    <section id="technologies" className="py-20 bg-gray-50">
+    <section id="technologies" className="py-20 bg-gray-100">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">

@@ -95,7 +95,7 @@ const Stats = () => {
   }, [isVisible]);
 
   return (
-    <section ref={sectionRef} className="relative py-20 overflow-hidden">
+    <section ref={sectionRef} className="relative overflow-hidden">
       {/* Background with Image Masking Effect */}
       {/* <div className="absolute inset-0 z-0 overflow-hidden">
         <img
