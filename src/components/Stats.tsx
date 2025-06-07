@@ -36,7 +36,7 @@ const Stats = () => {
     },
     {
       icon: Award,
-      label: "Team Size",
+      label: "In-house Experts",
       value: 25,
       suffix: "+",
       color: "text-orange-600",
