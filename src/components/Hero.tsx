@@ -37,7 +37,7 @@ const Hero = () => {
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
           Grow Your Business with{" "}
           <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Bidatles
+            Bidtales
           </span>
         </h1>
 
