@@ -16,24 +16,24 @@ interface HeaderProps {
 const Header = ({ sectionRefs }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('home');
+  const [activeSection, setActiveSection] = useState<string>("home");
 
   const memoizedSectionRefs = useMemo(() => sectionRefs, [sectionRefs]);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-      
+
       // Check which section is currently visible
-      let currentSection = 'home';
+      let currentSection = "home";
       let minDistance = Infinity;
-      
+
       Object.entries(memoizedSectionRefs).forEach(([key, ref]) => {
         const element = ref.current;
         if (element) {
           const rect = element.getBoundingClientRect();
           const distance = Math.abs(rect.top);
-          
+
           // Check if this section is closer to the top than the current closest
           if (distance < minDistance && rect.top <= 150 && rect.top >= -150) {
             currentSection = key;
@@ -41,9 +41,9 @@ const Header = ({ sectionRefs }: HeaderProps) => {
           }
         }
       });
-      
+
       // If no section is found within the visible range, use the first visible section
-      if (currentSection === 'home') {
+      if (currentSection === "home") {
         Object.entries(memoizedSectionRefs).forEach(([key, ref]) => {
           const element = ref.current;
           if (element) {
@@ -55,7 +55,7 @@ const Header = ({ sectionRefs }: HeaderProps) => {
           }
         });
       }
-      
+
       setActiveSection(currentSection);
     };
 
@@ -67,8 +67,8 @@ const Header = ({ sectionRefs }: HeaderProps) => {
     { name: "Home", href: "#home", section: "home" },
     { name: "Services", href: "#services", section: "services" },
     { name: "About", href: "#about", section: "about" },
-    { name: "Case Studies", href: "#case-studies", section: "caseStudies" },
-    { name: "Blog", href: "#blog", section: "blog" },
+    // { name: "Case Studies", href: "#case-studies", section: "caseStudies" },
+    // { name: "Blog", href: "#blog", section: "blog" },
     { name: "Contact", href: "#contact", section: "contact" },
   ];
 
@@ -94,17 +94,22 @@ const Header = ({ sectionRefs }: HeaderProps) => {
                 key={item.name}
                 href={item.href}
                 className={`transition-colors duration-200 ${
-                  activeSection === item.section ? "text-blue-400" : "text-gray-300 hover:text-blue-400"
+                  activeSection === item.section
+                    ? "text-blue-400"
+                    : "text-gray-300 hover:text-blue-400"
                 }`}
                 onClick={(e) => {
                   e.preventDefault();
                   setActiveSection(item.section);
                   setIsMenuOpen(false);
-                  
+
                   // Scroll to the section
-                  const element = memoizedSectionRefs[item.section as keyof typeof memoizedSectionRefs]?.current;
+                  const element =
+                    memoizedSectionRefs[
+                      item.section as keyof typeof memoizedSectionRefs
+                    ]?.current;
                   if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
+                    element.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
               >
@@ -142,7 +147,9 @@ const Header = ({ sectionRefs }: HeaderProps) => {
                   key={item.name}
                   href={item.href}
                   className={`block px-3 py-2 transition-colors duration-200 ${
-                    activeSection === item.section ? "text-blue-400" : "text-gray-300 hover:text-blue-400"
+                    activeSection === item.section
+                      ? "text-blue-400"
+                      : "text-gray-300 hover:text-blue-400"
                   }`}
                   onClick={() => {
                     setActiveSection(item.section);

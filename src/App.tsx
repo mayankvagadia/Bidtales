@@ -1,15 +1,15 @@
-import React, { useRef } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import Services from './components/Services';
-import Technologies from './components/Technologies';
-import Stats from './components/Stats';
-import Testimonials from './components/Testimonials';
-import About from './components/About';
-import CaseStudies from './components/CaseStudies';
-import Blog from './components/Blog';
-import Footer from './components/Footer';
+import { useRef } from "react";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Features from "./components/Features";
+import Services from "./components/Services";
+import Technologies from "./components/Technologies";
+import Stats from "./components/Stats";
+import Testimonials from "./components/Testimonials";
+import About from "./components/About";
+// import CaseStudies from "./components/CaseStudies";
+// import Blog from "./components/Blog";
+import Footer from "./components/Footer";
 
 function App() {
   const homeRef = useRef(null);
@@ -20,7 +20,7 @@ function App() {
   const contactRef = useRef(null);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen  bg-white">
       <Header
         sectionRefs={{
           home: homeRef,
@@ -28,7 +28,7 @@ function App() {
           about: aboutRef,
           caseStudies: caseStudiesRef,
           blog: blogRef,
-          contact: contactRef
+          contact: contactRef,
         }}
       />
       <main className="flex flex-col">
@@ -42,12 +42,12 @@ function App() {
         <section ref={aboutRef} id="about">
           <About />
         </section>
-        <section ref={caseStudiesRef} id="case-studies">
+        {/* <section ref={caseStudiesRef} id="case-studies">
           <CaseStudies />
-        </section>
-        <section ref={blogRef} id="blog">
+        </section> */}
+        {/* <section ref={blogRef} id="blog">
           <Blog />
-        </section>
+        </section> */}
         <section ref={contactRef} id="contact">
           <Technologies />
           <Stats />

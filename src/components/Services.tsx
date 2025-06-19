@@ -1,5 +1,4 @@
-import React from "react";
-import { ArrowRight } from "lucide-react";
+// import { ArrowRight } from "lucide-react";
 
 const Services = () => {
   const services = [
@@ -128,13 +127,13 @@ const Services = () => {
                   {service.description}
                 </p>
 
-                <a
+                {/* <a
                   href={service.link}
                   className="inline-flex items-center text-blue-600 font-semibold text-sm hover:text-blue-700 transition-colors group/link"
                 >
                   Learn more
                   <ArrowRight className="h-4 w-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
-                </a>
+                </a> */}
               </div>
             </div>
           ))}
