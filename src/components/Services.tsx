@@ -2,13 +2,13 @@
 
 const Services = () => {
   interface Service {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-}
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+  }
 
-const services: Service[] = [
+  const services: Service[] = [
     {
       id: "web-development",
       title: "Web Development",
@@ -138,7 +138,13 @@ const services: Service[] = [
                   className="inline-flex items-center text-blue-600 font-medium text-sm hover:text-blue-700 transition-colors group/link"
                 >
                   Learn More
-                  <svg className="ml-1 h-4 w-4 group-hover/link:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    className="ml-1 h-4 w-4 group-hover/link:translate-x-1 transition-transform"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </a>
@@ -155,7 +161,7 @@ const services: Service[] = [
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="hidden text-center mt-12">
           <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
             View All Services
           </button>
