@@ -1,5 +1,9 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu } from "lucide-react";
+import { Link as RouterLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+// Remove the unused function handleLinkClick
 
 interface NavigationItem {
   name: string;
@@ -7,75 +11,69 @@ interface NavigationItem {
   section: string;
 }
 
-interface HeaderProps {
-  sectionRefs: {
-    [key: string]: React.RefObject<HTMLElement>;
-  };
-}
-
-const Header = ({ sectionRefs }: HeaderProps) => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("home");
+  const [activeSection, setActiveSection] = useState("home");
+  const location = useLocation();
 
-  const memoizedSectionRefs = useMemo(() => sectionRefs, [sectionRefs]);
+  // Always show solid background on About page
+  const isAboutPage = location.pathname === "/about";
+  const shouldShowSolidBackground = isScrolled || isAboutPage;
+
+  const navigation: NavigationItem[] = [
+    { name: "Home", href: "/", section: "home" },
+    { name: "About", href: "/about", section: "about" },
+    { name: "Services", href: "/#services", section: "services" },
+    { name: "Contact", href: "/#contact", section: "contact" },
+  ];
+
+  const handleTellUsClick = (
+    e: React.MouseEvent,
+    sectionId: string,
+    sectionName: string
+  ) => {
+    e.preventDefault();
+    // Always scroll to the section
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(sectionName);
+    } else {
+      // If element not found, navigate to home page
+      window.location.href = `/#${sectionId}`;
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-
-      // Check which section is currently visible
-      let currentSection = "home";
-      let minDistance = Infinity;
-
-      Object.entries(memoizedSectionRefs).forEach(([key, ref]) => {
-        const element = ref.current;
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          const distance = Math.abs(rect.top);
-
-          // Check if this section is closer to the top than the current closest
-          if (distance < minDistance && rect.top <= 150 && rect.top >= -150) {
-            currentSection = key;
-            minDistance = distance;
-          }
-        }
-      });
-
-      // If no section is found within the visible range, use the first visible section
-      if (currentSection === "home") {
-        Object.entries(memoizedSectionRefs).forEach(([key, ref]) => {
-          const element = ref.current;
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top >= 0 && rect.top < window.innerHeight) {
-              currentSection = key;
-              return;
-            }
-          }
-        });
-      }
-
-      setActiveSection(currentSection);
+      setIsScrolled(window.scrollY > 0);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [memoizedSectionRefs]); // Add sectionRefs to dependencies
+  }, []);
 
-  const navigation: NavigationItem[] = [
-    { name: "Home", href: "#home", section: "home" },
-    { name: "Services", href: "#services", section: "services" },
-    { name: "About", href: "#about", section: "about" },
-    // { name: "Case Studies", href: "#case-studies", section: "caseStudies" },
-    // { name: "Blog", href: "#blog", section: "blog" },
-    { name: "Contact", href: "#contact", section: "contact" },
-  ];
+  const isActive = (section: string) => {
+    if (location.pathname === "/about") {
+      return section === "about";
+    }
+    return window.location.hash === `#${section}`;
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled
+        shouldShowSolidBackground
           ? "bg-gray-900/95 backdrop-blur-sm shadow-lg"
           : "bg-transparent"
       }`}
@@ -90,37 +88,45 @@ const Header = ({ sectionRefs }: HeaderProps) => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
             {navigation.map((item) => (
-              <a
+              <RouterLink
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className={`transition-colors duration-200 ${
-                  activeSection === item.section
+                  isActive(item.section)
                     ? "text-blue-400"
                     : "text-gray-300 hover:text-blue-400"
                 }`}
                 onClick={(e) => {
-                  e.preventDefault();
-                  setActiveSection(item.section);
                   setIsMenuOpen(false);
-
-                  // Scroll to the section
-                  const element =
-                    memoizedSectionRefs[
-                      item.section as keyof typeof memoizedSectionRefs
-                    ]?.current;
-                  if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
+                  if (item.section === "services") {
+                    handleTellUsClick(e, "services", "services");
+                  } else if (item.section === "contact") {
+                    handleTellUsClick(e, "contact", "contact");
                   }
                 }}
               >
                 {item.name}
-              </a>
+              </RouterLink>
             ))}
           </nav>
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                if (location.pathname === "/about") {
+                  window.location.href = "/#tell-us";
+                } else {
+                  const tellUsElement = document.getElementById("tell-us");
+                  if (tellUsElement) {
+                    tellUsElement.scrollIntoView({ behavior: "smooth" });
+                    setActiveSection("tell-us");
+                  }
+                }
+              }}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+            >
               Get a Quote
             </button>
           </div>
@@ -130,11 +136,8 @@ const Header = ({ sectionRefs }: HeaderProps) => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 rounded-md text-white"
           >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            <span className="sr-only">Open navigation</span>
+            <Menu className="h-6 w-6" />
           </button>
         </div>
 
@@ -143,9 +146,9 @@ const Header = ({ sectionRefs }: HeaderProps) => {
           <div className="md:hidden bg-gray-900/95 backdrop-blur-sm border-t border-gray-700">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
-                <a
+                <RouterLink
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className={`block px-3 py-2 transition-colors duration-200 ${
                     activeSection === item.section
                       ? "text-blue-400"
@@ -157,7 +160,7 @@ const Header = ({ sectionRefs }: HeaderProps) => {
                   }}
                 >
                   {item.name}
-                </a>
+                </RouterLink>
               ))}
               <button className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg">
                 Get a Quote
