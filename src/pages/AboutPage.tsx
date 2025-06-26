@@ -118,7 +118,9 @@ const AboutPage = () => {
           </div>
         </div>
       </div>
-      <TellUs />
+      <div id="contact">
+        <TellUs />
+      </div>
     </div>
   );
 };

@@ -444,7 +444,9 @@ const ServiceDetails = () => {
           </div>
         </div>
       </div>
-      <TellUs id="tell-us" />
+      <div id="contact" className="pt-16 bg-gray-100">
+        <TellUs />
+      </div>
     </div>
   );
 };

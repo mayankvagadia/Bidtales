@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
-import { Link as RouterLink } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 
 interface NavigationItem {
   name: string;
@@ -14,12 +13,27 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Always show solid background on About page and ServiceDetails page
   const isAboutPage = location.pathname === "/about";
   const isServiceDetailsPage = location.pathname.startsWith("/services/");
   const shouldShowSolidBackground =
     isScrolled || isAboutPage || isServiceDetailsPage;
+
+  const handleScroll = (section: string) => {
+    if (section === "contact") {
+      const element = document.getElementById("contact");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (section === "home") {
+      // Only scroll to top if we're already on home page
+      if (location.pathname === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+  };
 
   const navigation: NavigationItem[] = [
     { name: "Home", href: "/", section: "home" },
@@ -139,6 +153,17 @@ const Header = () => {
                       ? "text-blue-400"
                       : "text-gray-300 hover:text-blue-400"
                   }`}
+                  onClick={(e) => {
+                    if (item.section === "contact") {
+                      e.preventDefault();
+                      handleScroll(item.section);
+                    } else if (item.section === "home" && location.pathname === "/") {
+                      e.preventDefault();
+                      handleScroll(item.section);
+                    } else {
+                      navigate(item.href);
+                    }
+                  }}
                 >
                   {item.name}
                 </RouterLink>
@@ -160,11 +185,13 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden bg-gray-900/95 backdrop-blur-sm border-t border-gray-700">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
+              {navigation.map((item) =>
                 item.name === "Services" ? (
                   <div key={item.name} className="space-y-1">
                     <button
-                      onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
+                      onClick={() =>
+                        setIsServicesDropdownOpen(!isServicesDropdownOpen)
+                      }
                       className={`w-full flex justify-between items-center px-3 py-2 transition-colors duration-200 ${
                         isActive(item.section)
                           ? "text-blue-400"
@@ -180,7 +207,12 @@ const Header = () => {
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
                       </svg>
                     </button>
                     {isServicesDropdownOpen && (
@@ -210,12 +242,20 @@ const Header = () => {
                         ? "text-blue-400"
                         : "text-gray-300 hover:text-blue-400"
                     }`}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMenuOpen(false);
+                      if (item.section === "contact" || item.section === "home") {
+                        handleScroll(item.section);
+                      } else {
+                        navigate(item.href);
+                      }
+                    }}
                   >
                     {item.name}
                   </RouterLink>
                 )
-              ))}
+              )}
             </div>
           </div>
         )}
