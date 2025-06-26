@@ -1,7 +1,26 @@
-import React from "react";
 import { ArrowRight } from "lucide-react";
+import { useEffect } from "react";
 
 const Hero = () => {
+  useEffect(() => {
+    const handleServicesClick = () => {
+      const servicesSection = document.getElementById('services');
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    const servicesButton = document.querySelector('.services-button');
+    if (servicesButton) {
+      servicesButton.addEventListener('click', handleServicesClick);
+    }
+
+    return () => {
+      if (servicesButton) {
+        servicesButton.removeEventListener('click', handleServicesClick);
+      }
+    };
+  }, []);
   const trustedCompanies = [
     "Microsoft",
     "Adobe",
@@ -53,7 +72,7 @@ const Hero = () => {
             <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </button>
 
-          <button className="bg-transparent text-white px-8 py-4 rounded-lg font-semibold border border-gray-600 hover:bg-white/10 transition-all duration-300">
+          <button className="bg-transparent text-white px-8 py-4 rounded-lg font-semibold border border-gray-600 hover:bg-white/10 transition-all duration-300 services-button">
             Our Services
           </button>
         </div>

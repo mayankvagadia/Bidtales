@@ -15,7 +15,7 @@ const AboutPage = () => {
 
   return (
     <div className="bg-gradient-to-b from-gray-100 to-white pt-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl h-screen mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center">
         <motion.div
           ref={containerRef}
           initial="hidden"
@@ -25,7 +25,7 @@ const AboutPage = () => {
             visible: { opacity: 1, y: 0 },
           }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center"
         >
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
             About Us
@@ -118,10 +118,7 @@ const AboutPage = () => {
           </div>
         </div>
       </div>
-      {/* Contact Form Section */}
-      <div className="bg-gray-100 py-10" id="contact">
-        <TellUs />
-      </div>
+      <TellUs />
     </div>
   );
 };

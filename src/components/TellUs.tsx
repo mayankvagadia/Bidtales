@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const TellUs = () => {
+interface TellUsProps {
+  id?: string;
+}
+
+const TellUs: React.FC<TellUsProps> = ({ id = "tell-us" }) => {
   const [formData, setFormData] = useState({
     projectName: "",
     projectDescription: "",
@@ -86,7 +90,7 @@ const TellUs = () => {
   };
 
   return (
-    <div className="py-16 bg-gray-100">
+    <div id={id} className="py-12 md:py-16 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -94,10 +98,10 @@ const TellUs = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
             Tell Us About Your Project
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
             Ready to bring your vision to life? Share your project details with
             us and let's create something amazing together.
           </p>
@@ -105,14 +109,13 @@ const TellUs = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
         >
-          {/* Left Column - Project Details */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-4 md:space-y-6"
           >
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -123,7 +126,7 @@ const TellUs = () => {
                 name="projectName"
                 value={formData.projectName}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 md:px-4 md:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base"
                 placeholder="Enter your project name"
                 required
               />
@@ -138,7 +141,7 @@ const TellUs = () => {
                 value={formData.projectDescription}
                 onChange={handleChange}
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 md:px-4 md:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base"
                 placeholder="Describe your project requirements and goals..."
                 required
               ></textarea>
@@ -153,18 +156,17 @@ const TellUs = () => {
                 name="projectTimeline"
                 value={formData.projectTimeline}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 md:px-4 md:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base"
                 placeholder="Expected timeline or deadline"
               />
             </div>
           </motion.div>
 
-          {/* Right Column - Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="space-y-6"
+            className="space-y-4 md:space-y-6"
           >
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -175,7 +177,7 @@ const TellUs = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 md:px-4 md:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base"
                 placeholder="Enter your name"
                 required
               />
@@ -190,7 +192,7 @@ const TellUs = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 md:px-4 md:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base"
                 placeholder="Enter your email address"
                 required
               />
@@ -198,32 +200,41 @@ const TellUs = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number (Optional)
+                Phone Number
               </label>
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 md:px-4 md:py-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base"
                 placeholder="Enter your phone number"
               />
             </div>
+
+            <div className="pt-6">
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 md:px-6 md:py-3.5 rounded-md font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity"
+              >
+                {loading ? "Sending..." : "Send Message"}
+              </button>
+            </div>
           </motion.div>
-          <div className="col-span-2">
-            {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-            {success && (
-              <div className="text-green-500 text-sm mb-4">{success}</div>
-            )}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-md hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? "Submitting..." : "Submit Project"}
-            </button>
-          </div>
         </form>
+
+        {error && (
+          <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-md text-sm">
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="mt-4 p-4 bg-green-50 text-green-700 rounded-md text-sm">
+            {success}
+          </div>
+        )}
       </div>
     </div>
   );
