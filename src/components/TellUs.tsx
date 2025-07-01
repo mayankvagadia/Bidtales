@@ -241,3 +241,8 @@ const TellUs: React.FC<TellUsProps> = ({ id = "tell-us" }) => {
 };
 
 export default TellUs;
+
+// Options -MultiViews
+// RewriteEngine On
+// RewriteCond %{REQUEST_FILENAME} !-f
+// RewriteRule ^ index.html [QR,L]

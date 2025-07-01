@@ -1,3 +1,4 @@
+import { Link as RouterLink } from "react-router-dom";
 interface Service {
   id: string;
   title: string;
@@ -372,8 +373,9 @@ const ServiceCard = ({ service }: { service: Service }) => {
             </div>
           ))}
         </div> */}
-        <a
-          href={`/services/${service.id}`}
+        <RouterLink
+          to={`/services/${service.id}`}
+          // href={`/services/${service.id}`}
           className="inline-flex items-center text-blue-600 font-medium text-sm hover:text-blue-700 transition-colors"
         >
           Learn More
@@ -386,7 +388,7 @@ const ServiceCard = ({ service }: { service: Service }) => {
           >
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
-        </a>
+        </RouterLink>
       </div>
     </div>
   );
