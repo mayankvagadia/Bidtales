@@ -22,13 +22,13 @@ const Header = () => {
   const shouldShowSolidBackground =
     isScrolled || isAboutPage || isServiceDetailsPage || isContactPage;
 
-  // const handleScroll = (section: string) => {
-  //    if (section === "home") {
-  //      if (location.pathname === "/") {
-  //       window.scrollTo({ top: 0, behavior: "smooth" });
-  //     }
-  //   }
-  // };
+  const handleScroll = (section: string) => {
+     if (section === "home") {
+       if (location.pathname === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+  };
 
   const navigation: NavigationItem[] = [
     { name: "Home", href: "/", section: "home" },
@@ -151,7 +151,7 @@ const Header = () => {
                   onClick={(e) => {
                     if (item.section === "home" && location.pathname === "/") {
                       e.preventDefault();
-                      // handleScroll(item.section);
+                      handleScroll(item.section);
                     } else {
                       navigate(item.href);
                     }
@@ -240,7 +240,7 @@ const Header = () => {
                         item.section === "contact" ||
                         item.section === "home"
                       ) {
-                        // handleScroll(item.section);
+                        handleScroll(item.section);
                       } else {
                         navigate(item.href);
                       }
