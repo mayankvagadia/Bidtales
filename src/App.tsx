@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { useEffect } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -10,11 +16,21 @@ import AboutPage from "./pages/AboutPage";
 import Footer from "./components/Footer";
 import TellUs from "./components/TellUs";
 import ServiceDetails from "./pages/ServiceDetails";
+import ContactUs from "./pages/ContactUs";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-white">
+        <ScrollToTop />
         <Header />
         <Routes>
           <Route
@@ -43,6 +59,7 @@ function App() {
           />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services/:serviceId" element={<ServiceDetails />} />
+          <Route path="/contact" element={<ContactUs />} />
         </Routes>
         <Footer />
       </div>

@@ -1,6 +1,25 @@
-import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
-import TellUs from "../components/TellUs";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  CheckCircle,
+  Star,
+  Rocket,
+  Award,
+  Zap,
+  BarChart3,
+  Users,
+  Palette,
+  Layers,
+  ShieldCheck,
+  TrendingUp,
+  Lightbulb,
+  Target,
+  Briefcase,
+  Globe,
+  Code2,
+  Smartphone,
+  PieChart,
+  Activity,
+} from "lucide-react";
 
 interface Service {
   id: string;
@@ -13,11 +32,13 @@ interface Service {
   faq: { question: string; answer: string }[];
   features?: string[];
   benefits?: string[];
+  category: string;
 }
 
 const services: Service[] = [
   {
     id: "web-development",
+    category: "development",
     title: "Web Development",
     description:
       "Custom websites built with cutting-edge technologies to deliver exceptional user experiences and drive business results.",
@@ -76,6 +97,7 @@ const services: Service[] = [
   },
   {
     id: "mobile-development",
+    category: "development",
     title: "Mobile Development",
     description:
       "Native and cross-platform mobile applications that provide seamless experiences across all devices.",
@@ -128,6 +150,7 @@ const services: Service[] = [
   },
   {
     id: "ui-ux-design",
+    category: "development",
     title: "UI/UX Design",
     description:
       "User-centered design solutions that enhance usability, accessibility, and visual appeal of your digital products.",
@@ -172,6 +195,7 @@ const services: Service[] = [
   },
   {
     id: "performance-marketing",
+    category: "marketing",
     title: "Performance Marketing",
     description:
       "Data-driven marketing campaigns that maximize ROI through strategic targeting and optimization.",
@@ -222,6 +246,7 @@ const services: Service[] = [
   },
   {
     id: "social-media-management",
+    category: "marketing",
     title: "Social Media Management",
     description:
       "Complete social media strategy and content management to build your brand presence and engage audiences.",
@@ -270,10 +295,318 @@ const services: Service[] = [
       },
     ],
   },
+  {
+    id: "email-whatsapp-marketing",
+    category: "marketing",
+    title: "Email & WhatsApp Marketing",
+    description:
+      "Strategic email and WhatsApp marketing campaigns to engage and convert your audience.",
+    image:
+      "https://images.pexels.com/photos/326501/pexels-photo-326501.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    features: [
+      "Email campaign design and automation",
+      "WhatsApp message templates",
+      "Personalized messaging",
+      "Analytics and reporting",
+      "A/B testing",
+    ],
+    benefits: [
+      "Higher open rates and click-through rates",
+      "Increased engagement and customer loyalty",
+      "Direct communication channel",
+      "Cost-effective compared to other channels",
+      "Data-driven optimization",
+    ],
+    detailedDescription:
+      "We specialize in crafting compelling email and WhatsApp marketing campaigns that resonate with your audience. Our team designs engaging content, implements automation, and provides detailed analytics to measure campaign effectiveness.",
+    process: [
+      "Audience analysis",
+      "Campaign strategy",
+      "Content creation",
+      "Automation setup",
+      "Testing and optimization",
+    ],
+    tools: [
+      "Mailchimp",
+      "WhatsApp Business API",
+      "ActiveCampaign",
+      "Sendinblue",
+      "HubSpot",
+    ],
+    faq: [
+      {
+        question: "What's the difference between email and WhatsApp marketing?",
+        answer:
+          "Email marketing is primarily for long-form content and direct communication, while WhatsApp marketing is for quick, personalized messages and direct engagement.",
+      },
+      {
+        question: "How do you ensure deliverability?",
+        answer:
+          "We use best practices for email design, segmentation, and list hygiene to maintain high deliverability rates.",
+      },
+    ],
+  },
+  {
+    id: "seo",
+    category: "marketing",
+    title: "SEO & Content Marketing",
+    description:
+      "Comprehensive SEO and content marketing strategies to improve your online visibility and drive organic traffic.",
+    image:
+      "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    features: [
+      "Keyword research and optimization",
+      "On-page and off-page SEO",
+      "Content strategy and creation",
+      "Technical SEO audits",
+      "Analytics and reporting",
+    ],
+    benefits: [
+      "Higher organic search rankings",
+      "Increased organic traffic",
+      "Better brand authority",
+      "Long-term traffic growth",
+      "Cost-effective compared to PPC",
+    ],
+    detailedDescription:
+      "We provide comprehensive SEO and content marketing services to help your website rank higher in search engines and attract more organic traffic. Our strategies combine technical optimization, content creation, and data-driven analysis to achieve your SEO goals.",
+    process: [
+      "Initial audit and strategy",
+      "Keyword research and planning",
+      "Content creation and optimization",
+      "Technical implementation",
+      "Performance tracking",
+    ],
+    tools: [
+      "Google Search Console",
+      "SEMrush",
+      "Ahrefs",
+      "Moz",
+      "Google Analytics",
+    ],
+    faq: [
+      {
+        question: "What's the ROI of SEO?",
+        answer:
+          "SEO can provide a high ROI when done correctly. It's a long-term investment that can significantly impact your website's traffic and revenue.",
+      },
+      {
+        question: "How do you measure SEO success?",
+        answer:
+          "We use a combination of metrics including organic traffic, keyword rankings, bounce rates, and conversion rates to evaluate SEO performance.",
+      },
+    ],
+  },
+  {
+    id: "creative-branding",
+    category: "consulting",
+    title: "Creative Branding & Design",
+    description:
+      "Strategic brand design and creative solutions to establish your unique identity and attract your target audience.",
+    image:
+      "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    features: [
+      "Brand strategy and positioning",
+      "Logo and visual identity design",
+      "Color and typography systems",
+      "Brand guidelines",
+      "Digital and print design",
+    ],
+    benefits: [
+      "Strong brand recognition",
+      "Differentiation from competitors",
+      "Higher customer trust",
+      "Increased brand loyalty",
+      "Competitive advantage",
+    ],
+    detailedDescription:
+      "We help businesses develop a strong, memorable brand through strategic design and creative solutions. Our branding services focus on establishing a unique identity, creating compelling visual assets, and ensuring consistency across all touchpoints.",
+    process: [
+      "Brand strategy development",
+      "Logo and visual design",
+      "Brand guidelines creation",
+      "Implementation and rollout",
+      "Ongoing brand maintenance",
+    ],
+    tools: ["Figma", "Adobe XD", "Canva", "Brandfolder", "Dribbble"],
+    faq: [
+      {
+        question: "Why is branding important?",
+        answer:
+          "Branding is crucial for establishing trust, differentiating your business, and creating a memorable presence in your industry.",
+      },
+      {
+        question: "How do you ensure brand consistency?",
+        answer:
+          "We develop comprehensive brand guidelines and ensure all design elements adhere to these standards.",
+      },
+    ],
+  },
+  {
+    id: "influencer-marketing",
+    category: "marketing",
+    title: "Influencer Marketing",
+    description:
+      "Strategic partnerships with influencers to reach your target audience and drive brand awareness.",
+    image:
+      "https://images.pexels.com/photos/326501/pexels-photo-326501.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    features: [
+      "Influencer selection and partnership",
+      "Campaign strategy and planning",
+      "Content creation and distribution",
+      "Analytics and reporting",
+      "ROI measurement",
+    ],
+    benefits: [
+      "Reach a highly targeted audience",
+      "Increase brand credibility",
+      "Higher engagement rates",
+      "Cost-effective compared to traditional ads",
+      "Data-driven optimization",
+    ],
+    detailedDescription:
+      "We help businesses leverage the power of influencers to reach their target audience and drive brand awareness. Our influencer marketing strategies combine strategic partnerships with creative content to maximize impact.",
+    process: [
+      "Audience analysis",
+      "Influencer research and selection",
+      "Campaign planning",
+      "Content creation and distribution",
+      "Performance tracking",
+    ],
+    tools: [
+      "Influencer databases",
+      "Google Analytics",
+      "Facebook Ads Manager",
+      "Hootsuite",
+      "Sprout Social",
+    ],
+    faq: [
+      {
+        question: "How do you measure influencer marketing ROI?",
+        answer:
+          "We use a combination of metrics including reach, engagement, conversion rates, and cost per conversion to measure the effectiveness of influencer campaigns.",
+      },
+      {
+        question:
+          "What's the difference between micro, macro, and mega influencers?",
+        answer:
+          "Micro-influencers have smaller but more engaged followings, while mega-influencers have massive followings but might be less relevant to your target audience.",
+      },
+    ],
+  },
+  {
+    id: "analytics-consulting",
+    category: "consulting",
+    title: "Analytics & Consulting",
+    description:
+      "Expert analytics consulting and data-driven decision-making to optimize your business strategies.",
+    image:
+      "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop",
+    features: [
+      "Data strategy and roadmap",
+      "Advanced analytics implementation",
+      "Custom reporting and dashboards",
+      "Data-driven decision-making",
+      "KPIs and OKRs",
+    ],
+    benefits: [
+      "Data-driven insights",
+      "Better decision-making",
+      "Increased efficiency",
+      "Cost savings",
+      "Competitive advantage",
+    ],
+    detailedDescription:
+      "We provide expert analytics consulting services to help businesses leverage their data for strategic decision-making. Our team designs and implements advanced analytics solutions, creates custom reports, and provides actionable insights to drive your business forward.",
+    process: [
+      "Initial audit and strategy",
+      "Data architecture and infrastructure",
+      "Advanced analytics implementation",
+      "Custom reporting and dashboards",
+      "Ongoing optimization and maintenance",
+    ],
+    tools: [
+      "Google Analytics",
+      "Google Tag Manager",
+      "Mixpanel",
+      "Amplitude",
+      "Looker Studio",
+    ],
+    faq: [
+      {
+        question: "Why is analytics important?",
+        answer:
+          "Analytics is crucial for understanding your business performance, identifying opportunities, and making data-driven decisions to optimize your strategies.",
+      },
+      {
+        question: "How do you ensure data accuracy and reliability?",
+        answer:
+          "We use best practices for data collection, storage, and processing to ensure accuracy and reliability of your analytics data.",
+      },
+    ],
+  },
 ];
+
+// Map features/benefits to icons for demo
+const featureIcons = [
+  Star,
+  Rocket,
+  Award,
+  Zap,
+  BarChart3,
+  Users,
+  Palette,
+  Layers,
+  ShieldCheck,
+  TrendingUp,
+  Lightbulb,
+  Target,
+  Briefcase,
+  Globe,
+  Code2,
+  Smartphone,
+  PieChart,
+  Activity,
+];
+
+// Theme definitions for demo-style (soft blue backgrounds, white cards)
+const categoryThemes = {
+  development: {
+    mainBg: "bg-blue-50",
+    card: "bg-white border border-blue-100",
+    accent: "text-blue-700",
+    button: "bg-blue-600 hover:bg-blue-700",
+    icon: "text-blue-500",
+    sectionTitle: "text-blue-900",
+  },
+  marketing: {
+    mainBg: "bg-pink-50",
+    card: "bg-white border border-pink-100",
+    accent: "text-pink-700",
+    button: "bg-pink-500 hover:bg-pink-600",
+    icon: "text-pink-500",
+    sectionTitle: "text-pink-900",
+  },
+  consulting: {
+    mainBg: "bg-teal-50",
+    card: "bg-white border border-teal-100",
+    accent: "text-teal-700",
+    button: "bg-teal-500 hover:bg-teal-600",
+    icon: "text-teal-500",
+    sectionTitle: "text-teal-900",
+  },
+};
+
+const getTheme = (category: string) => {
+  if (category === "development") return categoryThemes.development;
+  if (category === "marketing") return categoryThemes.marketing;
+  if (category === "consulting") return categoryThemes.consulting;
+  return categoryThemes.development;
+};
 
 const ServiceDetails = () => {
   const { serviceId } = useParams();
+  const navigate = useNavigate();
   const service = services.find((s) => s.id === serviceId);
 
   if (!service) {
@@ -291,161 +624,167 @@ const ServiceDetails = () => {
     );
   }
 
+  const theme = getTheme(service?.category || "development");
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-12xl pt-16">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative h-64">
-            <img
-              src={service.image}
-              alt={service.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-          </div>
-          <div className="py-8 px-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h1 className="text-3xl font-bold text-gray-900 mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                {service.title}
-              </h1>
-              <div className="space-y-6 mb-6">
-                <p className="text-gray-600 mb-8 leading-relaxed">
-                  {service.description}
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  {service.detailedDescription}
-                </p>
-              </div>
+    <div className={`min-h-screen ${theme.mainBg} text-gray-900`}>
+      {/* Hero Section */}
+      <section className="w-full py-16 md:pt-36 md:pb-24 px-4 md:px-0 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto">
+        <div className="flex-1 md:pr-12 mb-10 md:mb-0">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight text-gray-900">
+            {service.title}
+          </h1>
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-700">
+            {service.description}
+          </h2>
+          <p className="mb-8 text-gray-600 text-base md:text-lg">
+            {service.detailedDescription}
+          </p>
+          <button
+            type="button"
+            onClick={() => navigate("/contact")}
+            className={`inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white ${theme.button} focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 shadow-lg`}
+          >
+            Get Started
+          </button>
+        </div>
+        <div className="flex-1 flex justify-center items-center">
+          <img
+            src={service.image}
+            alt={service.title}
+            className="w-full max-w-md rounded-2xl shadow-lg bg-white"
+            style={{ minHeight: 260 }}
+          />
+        </div>
+      </section>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 py-12 space-y-20">
+        {/* Features */}
+        <section id="features">
+          <h2
+            className={`text-3xl md:text-4xl font-bold mb-10 text-center ${theme.sectionTitle}`}
+          >
+            Key Features
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {service.features?.map((feature, i) => {
+              const Icon = featureIcons[i % featureIcons.length];
+              return (
+                <div
+                  key={i}
+                  className={`${theme.card} rounded-2xl p-6 flex flex-col items-center text-center shadow-md hover:shadow-lg transition-all duration-300`}
                 >
-                  <div className="mb-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                      Key Features
-                    </h3>
-                    <ul className="space-y-2">
-                      {service.features?.map((feature, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="text-blue-600 mr-2">•</span>
-                          <span className="text-gray-600">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                >
-                  <div className="mb-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                      Benefits
-                    </h3>
-                    <ul className="space-y-2">
-                      {service.benefits?.map((benefit, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="text-blue-600 mr-2">•</span>
-                          <span className="text-gray-600">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <div className="mt-8">
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                  <div
+                    className={`mb-4 p-4 rounded-full bg-blue-100 flex items-center justify-center`}
                   >
-                    Get Started
-                  </a>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          <div className="mt-16 px-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">
-              Our Process
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {service.process.map((step, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-gray-50 p-6 rounded-lg"
-                >
-                  <div className="flex items-center mb-2">
-                    <span className="text-2xl font-bold text-blue-600 mr-2">
-                      {index + 1}.
-                    </span>
-                    <span className="text-gray-900">{step}</span>
+                    <Icon className={`w-8 h-8 ${theme.icon}`} />
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                  <span className="text-lg font-semibold text-gray-900">
+                    {feature}
+                  </span>
+                </div>
+              );
+            })}
           </div>
+        </section>
 
-          <div className="mt-16 px-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">
-              Tools & Technologies
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {service.tools.map((tool, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-gray-50 p-4 rounded-lg text-center"
+        {/* Benefits */}
+        <section id="benefits">
+          <h2
+            className={`text-3xl md:text-4xl font-bold mb-10 text-center ${theme.sectionTitle}`}
+          >
+            Benefits
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {service.benefits?.map((benefit, i) => {
+              const Icon = featureIcons[(i + 5) % featureIcons.length];
+              return (
+                <div
+                  key={i}
+                  className={`${theme.card} rounded-2xl p-6 flex flex-col items-center text-center shadow-md hover:shadow-lg transition-all duration-300`}
                 >
-                  <span className="text-gray-900">{tool}</span>
-                </motion.div>
-              ))}
-            </div>
+                  <div
+                    className={`mb-4 p-4 rounded-full bg-purple-100 flex items-center justify-center`}
+                  >
+                    <Icon className={`w-8 h-8 ${theme.icon}`} />
+                  </div>
+                  <span className="text-lg font-semibold text-gray-900">
+                    {benefit}
+                  </span>
+                </div>
+              );
+            })}
           </div>
+        </section>
 
-          <div className="mt-16 px-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">
-              Frequently Asked Questions
-            </h2>
-            {service.faq.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="mb-6"
+        {/* Process */}
+        <section id="process">
+          <h2
+            className={`text-3xl md:text-4xl font-bold mb-10 text-center ${theme.sectionTitle}`}
+          >
+            Our Process
+          </h2>
+          <ol className="grid md:grid-cols-3 gap-8">
+            {service.process.map((step, i) => (
+              <li
+                key={i}
+                className={`${theme.card} rounded-2xl p-6 flex flex-col items-center text-center shadow-md hover:shadow-lg transition-all duration-300`}
               >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {item.question}
-                </h3>
-                <p className="text-gray-600">{item.answer}</p>
-              </motion.div>
+                <span
+                  className={`mb-4 w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl`}
+                >
+                  {i + 1}
+                </span>
+                <span className="text-lg font-medium text-gray-900">
+                  {step}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* Tools & Technologies */}
+        <section id="tools">
+          <h2
+            className={`text-3xl md:text-4xl font-bold mb-10 text-center text-green-700`}
+          >
+            Tools & Technologies
+          </h2>
+          <div className="flex flex-wrap gap-4 justify-center">
+            {service.tools.map((tool, i) => (
+              <span
+                key={i}
+                className={`text-gray-900 px-4 py-2 rounded-lg font-semibold text-base shadow bg-white border border-gray-200`}
+              >
+                {tool}
+              </span>
             ))}
           </div>
-        </div>
-      </div>
-      <div id="contact" className="pt-16 bg-gray-100">
-        <TellUs />
+        </section>
+
+        {/* FAQ */}
+        <section id="faq">
+          <h2
+            className={`text-3xl md:text-4xl font-bold mb-10 text-center text-yellow-700`}
+          >
+            Frequently Asked Questions
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {service.faq.map((item, i) => (
+              <div
+                key={i}
+                className={`rounded-2xl p-6 shadow bg-white border border-gray-200`}
+              >
+                <h3 className="text-lg font-semibold mb-2 flex items-center gap-2 text-blue-700">
+                  <CheckCircle className="w-5 h-5 text-blue-400" />{" "}
+                  {item.question}
+                </h3>
+                <p className="text-gray-700">{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

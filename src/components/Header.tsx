@@ -17,29 +17,24 @@ const Header = () => {
 
   // Always show solid background on About page and ServiceDetails page
   const isAboutPage = location.pathname === "/about";
+  const isContactPage = location.pathname === "/contact";
   const isServiceDetailsPage = location.pathname.startsWith("/services/");
   const shouldShowSolidBackground =
-    isScrolled || isAboutPage || isServiceDetailsPage;
+    isScrolled || isAboutPage || isServiceDetailsPage || isContactPage;
 
-  const handleScroll = (section: string) => {
-    if (section === "contact") {
-      const element = document.getElementById("contact");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    } else if (section === "home") {
-      // Only scroll to top if we're already on home page
-      if (location.pathname === "/") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }
-  };
+  // const handleScroll = (section: string) => {
+  //    if (section === "home") {
+  //      if (location.pathname === "/") {
+  //       window.scrollTo({ top: 0, behavior: "smooth" });
+  //     }
+  //   }
+  // };
 
   const navigation: NavigationItem[] = [
     { name: "Home", href: "/", section: "home" },
     { name: "About", href: "/about", section: "about" },
     { name: "Services", href: "/services", section: "services" },
-    { name: "Contact", href: "/#contact", section: "contact" },
+    { name: "Contact", href: "/contact", section: "contact" },
   ];
 
   const servicesMenu = [
@@ -154,12 +149,9 @@ const Header = () => {
                       : "text-gray-300 hover:text-blue-400"
                   }`}
                   onClick={(e) => {
-                    if (item.section === "contact") {
+                    if (item.section === "home" && location.pathname === "/") {
                       e.preventDefault();
-                      handleScroll(item.section);
-                    } else if (item.section === "home" && location.pathname === "/") {
-                      e.preventDefault();
-                      handleScroll(item.section);
+                      // handleScroll(item.section);
                     } else {
                       navigate(item.href);
                     }
@@ -170,7 +162,6 @@ const Header = () => {
               )
             )}
           </nav>
-
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -245,8 +236,11 @@ const Header = () => {
                     onClick={(e) => {
                       e.preventDefault();
                       setIsMenuOpen(false);
-                      if (item.section === "contact" || item.section === "home") {
-                        handleScroll(item.section);
+                      if (
+                        item.section === "contact" ||
+                        item.section === "home"
+                      ) {
+                        // handleScroll(item.section);
                       } else {
                         navigate(item.href);
                       }

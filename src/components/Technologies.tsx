@@ -48,79 +48,95 @@ const Technologies = () => {
           </p>
         </div>
         <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-blue-100 hover:to-purple-100">
             <FontAwesomeIcon
               icon={faAndroid}
-              className="text-5xl text-gray-400 hover:text-green-500"
+              className="text-5xl text-gray-400 group-hover:text-green-500 transition-colors duration-300"
             />
-            <i className="fab fa-android text-5xl text-gray-400 hover:text-green-500"></i>
-            <span className="mt-2 text-gray-700">Android</span>
+            <span className="mt-2 text-gray-700 group-hover:text-green-600 transition-colors duration-300">
+              Android
+            </span>
           </div>
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-gray-100 hover:to-gray-300">
             <FontAwesomeIcon
               icon={faApple}
-              className="text-5xl text-gray-400 hover:text-gray-800"
+              className="text-5xl text-gray-400 group-hover:text-gray-800 transition-colors duration-300"
             />
-            {/* <i className="fab fa-apple text-5xl text-gray-400 hover:text-gray-800"></i> */}
-            <span className="mt-2 text-gray-700">iOS</span>
+            <span className="mt-2 text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
+              iOS
+            </span>
           </div>
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-blue-100 hover:to-purple-100">
             <FontAwesomeIcon
               icon={faReact}
-              className="text-5xl text-gray-400 hover:text-blue-400"
+              className="text-5xl text-gray-400 group-hover:text-blue-400 transition-colors duration-300"
             />
-            {/* <i className="fab fa-react text-5xl text-gray-400 hover:text-blue-400"></i> */}
-            <span className="mt-2 text-gray-700">React Native</span>
+            <span className="mt-2 text-gray-700 group-hover:text-blue-500 transition-colors duration-300">
+              React Native
+            </span>
           </div>
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl  transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-blue-100 hover:to-blue-300">
             <FontAwesomeIcon
               icon={faReact}
-              className="text-5xl text-gray-400 hover:text-blue-600"
+              className="text-5xl text-gray-400 group-hover:text-blue-600 transition-colors duration-300"
             />
-            {/* <i className="fab fa-react text-5xl text-gray-400 hover:text-blue-600"></i> */}
-            <span className="mt-2 text-gray-700">React JS</span>
+            <span className="mt-2 text-gray-700 group-hover:text-blue-700 transition-colors duration-300">
+              React JS
+            </span>
           </div>
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl  transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-blue-100 hover:to-blue-200">
             <FontAwesomeIcon
               icon={faMobileAlt}
-              className="text-5xl text-gray-400 hover:text-blue-500"
+              className="text-5xl text-gray-400 group-hover:text-blue-500 transition-colors duration-300"
             />
-            <span className="mt-2 text-gray-700">Flutter</span>
+            <span className="mt-2 text-gray-700 group-hover:text-blue-600 transition-colors duration-300">
+              Flutter
+            </span>
           </div>
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl  transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-orange-100 hover:to-yellow-100">
             <FontAwesomeIcon
               icon={faSwift}
-              className="text-5xl text-gray-400 hover:text-orange-500"
+              className="text-5xl text-gray-400 group-hover:text-orange-500 transition-colors duration-300"
             />
-            <span className="mt-2 text-gray-700">Swift</span>
+            <span className="mt-2 text-gray-700 group-hover:text-orange-600 transition-colors duration-300">
+              Swift
+            </span>
           </div>
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl  transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-yellow-100 hover:to-yellow-200">
             <FontAwesomeIcon
               icon={faJs}
-              className="text-5xl text-gray-400 hover:text-yellow-400"
+              className="text-5xl text-gray-400 group-hover:text-yellow-400 transition-colors duration-300"
             />
-            <span className="mt-2 text-gray-700">JavaScript</span>
+            <span className="mt-2 text-gray-700 group-hover:text-yellow-600 transition-colors duration-300">
+              JavaScript
+            </span>
           </div>
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl  transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-indigo-100 hover:to-indigo-200">
             <FontAwesomeIcon
               icon={faPhp}
-              className="text-5xl text-gray-400 hover:text-indigo-600"
+              className="text-5xl text-gray-400 group-hover:text-indigo-600 transition-colors duration-300"
             />
-            <span className="mt-2 text-gray-700">PHP</span>
+            <span className="mt-2 text-gray-700 group-hover:text-indigo-700 transition-colors duration-300">
+              PHP
+            </span>
           </div>
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl  transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-green-100 hover:to-green-200">
             <FontAwesomeIcon
               icon={faDatabase}
-              className="text-5xl text-gray-400 hover:text-green-600"
+              className="text-5xl text-gray-400 group-hover:text-green-600 transition-colors duration-300"
             />
-            <span className="mt-2 text-gray-700">MongoDB</span>
+            <span className="mt-2 text-gray-700 group-hover:text-green-700 transition-colors duration-300">
+              MongoDB
+            </span>
           </div>
-          <div className="tech-item flex flex-col items-center transition-all duration-300 hover:transform hover:scale-110">
+          <div className="tech-item flex flex-col items-center bg-transparent rounded-2xl  transition-all duration-300 hover:scale-110 hover:shadow-xl hover:bg-gradient-to-br group cursor-pointer p-4 hover:p-6 hover:from-blue-100 hover:to-blue-200">
             <FontAwesomeIcon
               icon={faDatabase}
-              className="text-5xl text-gray-400 hover:text-blue-500"
+              className="text-5xl text-gray-400 group-hover:text-blue-500 transition-colors duration-300"
             />
-            <span className="mt-2 text-gray-700">MySQL</span>
+            <span className="mt-2 text-gray-700 group-hover:text-blue-600 transition-colors duration-300">
+              MySQL
+            </span>
           </div>
         </div>
       </div>

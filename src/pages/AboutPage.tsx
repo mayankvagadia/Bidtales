@@ -1,6 +1,5 @@
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useEffect, useRef } from "react";
-import TellUs from "../components/TellUs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUsers,
@@ -351,15 +350,6 @@ const AboutPage = () => {
               </motion.div>
             </div>
           </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="py-16"
-        >
-          <TellUs />
         </motion.div>
       </div>
     </div>
