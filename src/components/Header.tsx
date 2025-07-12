@@ -234,20 +234,17 @@ const Header = () => {
                         : "text-gray-300 hover:text-blue-400"
                     }`}
                     onClick={(e) => {
+                     if (item.section === "home" && location.pathname === "/") {
                       e.preventDefault();
-                      setIsMenuOpen(false);
-                      if (
-                        item.section === "contact" ||
-                        item.section === "home"
-                      ) {
-                        handleScroll(item.section);
-                      } else {
-                        navigate(item.href);
-                      }
+                      handleScroll(item.section);
+                    } else {
+                      navigate(item.href);
+                    }
                     }}
                   >
                     {item.name}
-                  </RouterLink>
+                    </RouterLink>
+                  
                 )
               )}
             </div>
