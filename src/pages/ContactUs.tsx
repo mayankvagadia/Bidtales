@@ -1,4 +1,6 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { EMAILJS_CONFIG } from "../config/emailjs";
 
 const ContactUs = () => {
   // Unique Get in Touch form state
@@ -13,6 +15,7 @@ const ContactUs = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -20,23 +23,53 @@ const ContactUs = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
+
     if (!form.fullName || !form.email || !form.message) {
       setError("Please fill in all required fields.");
+      setLoading(false);
       return;
     }
-    setSubmitted(true);
-    setForm({
-      fullName: "",
-      email: "",
-      message: "",
-      company: "",
-      budget: "",
-      phone: "",
-      subject: "",
-    });
+
+    try {
+      // Initialize EmailJS with your public key
+      emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+
+      const templateParams = {
+        from_name: form.fullName,
+        from_email: form.email,
+        message: form.message,
+        subject: form.subject || "Contact Form Submission",
+        company: form.company || "Not specified",
+        budget: form.budget || "Not specified",
+        phone: form.phone || "Not specified",
+      };
+
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATES.CONTACT_FORM,
+        templateParams
+      );
+
+      setSubmitted(true);
+      setForm({
+        fullName: "",
+        email: "",
+        message: "",
+        company: "",
+        budget: "",
+        phone: "",
+        subject: "",
+      });
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setError("Failed to send message. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -119,7 +152,7 @@ const ContactUs = () => {
                       placeholder="Full Name"
                       required
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 to-purple-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 to-purple-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                   </div>
                   <div className="relative group">
                     <input
@@ -131,19 +164,56 @@ const ContactUs = () => {
                       placeholder="Email Address"
                       required
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-400/5 to-pink-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-400/5 to-pink-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                   </div>
                 </div>
-                <div className="relative group">
-                  <input
-                    type="text"
-                    name="subject"
-                    value={form.subject || ""}
-                    onChange={handleChange}
-                    className="w-full px-8 py-5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-400/20 focus:border-indigo-400 text-base bg-white/80 backdrop-blur-sm shadow-lg transition-all duration-300 group-hover:border-indigo-300"
-                    placeholder="Subject"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/5 to-blue-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="relative group">
+                    <input
+                      type="text"
+                      name="subject"
+                      value={form.subject || ""}
+                      onChange={handleChange}
+                      className="w-full px-8 py-5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-400/20 focus:border-indigo-400 text-base bg-white/80 backdrop-blur-sm shadow-lg transition-all duration-300 group-hover:border-indigo-300"
+                      placeholder="Subject"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/5 to-blue-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  </div>
+                  <div className="relative group">
+                    <input
+                      type="text"
+                      name="company"
+                      value={form.company || ""}
+                      onChange={handleChange}
+                      className="w-full px-8 py-5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-400/20 focus:border-purple-400 text-base bg-white/80 backdrop-blur-sm shadow-lg transition-all duration-300 group-hover:border-purple-300"
+                      placeholder="Company (Optional)"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-400/5 to-pink-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="relative group">
+                    <input
+                      type="text"
+                      name="phone"
+                      value={form.phone || ""}
+                      onChange={handleChange}
+                      className="w-full px-8 py-5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-400/20 focus:border-green-400 text-base bg-white/80 backdrop-blur-sm shadow-lg transition-all duration-300 group-hover:border-green-300"
+                      placeholder="Phone Number (Optional)"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-400/5 to-teal-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  </div>
+                  <div className="relative group">
+                    <input
+                      type="text"
+                      name="budget"
+                      value={form.budget || ""}
+                      onChange={handleChange}
+                      className="w-full px-8 py-5 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-orange-400/20 focus:border-orange-400 text-base bg-white/80 backdrop-blur-sm shadow-lg transition-all duration-300 group-hover:border-orange-300"
+                      placeholder="Budget Range (Optional)"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-red-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  </div>
                 </div>
                 <div className="relative group">
                   <textarea
@@ -155,7 +225,7 @@ const ContactUs = () => {
                     placeholder="Tell us about your project..."
                     required
                   ></textarea>
-                  <div className="absolute inset-0 bg-gradient-to-r from-green-400/5 to-teal-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-400/5 to-teal-400/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                 </div>
                 {error && (
                   <div className="text-red-500 text-sm bg-red-50 p-4 rounded-lg border border-red-200">
@@ -169,9 +239,14 @@ const ContactUs = () => {
                 )}
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white px-12 py-5 rounded-xl font-bold text-lg shadow-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white px-12 py-5 rounded-xl font-bold text-lg shadow-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitted ? "Message Sent! 🎉" : "Send Message"}
+                  {loading
+                    ? "Sending..."
+                    : submitted
+                    ? "Message Sent! 🎉"
+                    : "Send Message"}
                 </button>
               </form>
             </div>

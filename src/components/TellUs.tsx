@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { EMAILJS_CONFIG } from "../config/emailjs";
 
 interface TellUsProps {
   id?: string;
@@ -54,25 +56,27 @@ const TellUs: React.FC<TellUsProps> = ({ id = "tell-us" }) => {
 
     setLoading(true);
     try {
-      // Create email body with form data
-      const emailBody = `
-        Project Name: ${formData.projectName}
-        Project Description: ${formData.projectDescription}
-        Project Timeline: ${formData.projectTimeline}
-        
-        Client Information:
-        Name: ${formData.name}
-        Email: ${formData.email}
-        Phone: ${formData.phone}
-      `;
+      // Initialize EmailJS with your public key
+      emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
 
-      // Replace spaces with %20 for URL encoding
-      const encodedBody = encodeURIComponent(emailBody);
+      const templateParams = {
+        project_name: formData.projectName,
+        project_description: formData.projectDescription,
+        project_timeline: formData.projectTimeline || "Not specified",
+        client_name: formData.name,
+        client_email: formData.email,
+        client_phone: formData.phone || "Not specified",
+      };
 
-      // Open default email client with pre-filled email
-      window.location.href = `mailto:bidtales@gmail.com?subject=New Project Inquiry: ${formData.projectName}&body=${encodedBody}`;
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATES.PROJECT_INQUIRY,
+        templateParams
+      );
 
-      //   setSuccess("Email client opened. Please send the email to complete your inquiry.");
+      setSuccess(
+        "Your project inquiry has been sent successfully! We'll get back to you soon."
+      );
       setFormData({
         projectName: "",
         projectDescription: "",
@@ -82,8 +86,8 @@ const TellUs: React.FC<TellUsProps> = ({ id = "tell-us" }) => {
         phone: "",
       });
     } catch (err) {
-      console.error("Error opening email:", err);
-      setError("Failed to open email client. Please try again later.");
+      console.error("EmailJS error:", err);
+      setError("Failed to send inquiry. Please try again later.");
     } finally {
       setLoading(false);
     }
